@@ -7,6 +7,6 @@ public class SequenceStackTest extends StackTest {
 
     @Override
     protected Stack<String> createEmpty() {
-        return new SequenceStack<String>();
+        return new SequenceStack<>();
     }
 }
