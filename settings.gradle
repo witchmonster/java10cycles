@@ -1,0 +1,6 @@
+rootProject.name = 'java10cycles'
+
+include 'algorithms'
+include 'datastructures'
+include 'labs'
+
