@@ -7,9 +7,8 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.VerticalLayout;
 
-import java.util.Date;
-
-import static com.juliakram.labs.movietickets.util.DateHelper.*;
+import static com.juliakram.labs.movietickets.util.DateHelper.TODAY;
+import static com.juliakram.labs.movietickets.util.DateHelper.toDate;
 
 /**
  * Created by yuliya.kramarenko on 26.01.2015.
@@ -17,7 +16,7 @@ import static com.juliakram.labs.movietickets.util.DateHelper.*;
 public class DatePickerView extends VerticalLayout implements View {
     public static final String NAME = "datePicker";
 
-    private void draw() {
+    public void draw() {
 
         PopupDateField calendarPicker = new PopupDateField();
 
@@ -26,12 +25,12 @@ public class DatePickerView extends VerticalLayout implements View {
         calendarPicker.setDateOutOfRangeMessage(Messages.DATE_OUT_OF_RANGE);
         calendarPicker.setValue(toDate(TODAY));
 
-        calendarPicker.addValueChangeListener(event -> {
-            Date changedDate = refineDate((Date) event.getProperty().getValue());
-            calendarPicker.setValue(changedDate);
-            main.removeComponent(main.getComponent(2));
-            main.addComponent(renderScheduleFor(toLocalDate(changedDate)), 2);
-        });
+//        calendarPicker.addValueChangeListener(event -> {
+//            Date changedDate = refineDate((Date) event.getProperty().getValue());
+//            calendarPicker.setValue(changedDate);
+//            main.removeComponent(main.getComponent(2));
+//            main.addComponent(renderScheduleFor(toLocalDate(changedDate)), 2);
+//        });
         calendarPicker.setImmediate(true);
 
         addComponent(new Label(Messages.PICK_A_DATE));

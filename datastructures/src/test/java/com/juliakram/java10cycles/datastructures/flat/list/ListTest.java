@@ -1,6 +1,6 @@
 package com.juliakram.java10cycles.datastructures.flat.list;
 
-import com.juliakram.java10cycles.datastructures.framework.DataStructureTest;
+import com.juliakram.java10cycles.datastructures.DataStructureTest;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

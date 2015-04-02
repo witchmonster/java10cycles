@@ -1,6 +1,6 @@
 package com.juliakram.java10cycles.datastructures.flat.stack;
 
-import com.juliakram.java10cycles.datastructures.framework.DataStructure;
+import com.juliakram.java10cycles.datastructures.DataStructure;
 
 /**
  * Created by yuliya.kramarenko on 02.12.2014.

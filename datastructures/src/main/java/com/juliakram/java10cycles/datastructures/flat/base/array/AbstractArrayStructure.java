@@ -1,6 +1,6 @@
 package com.juliakram.java10cycles.datastructures.flat.base.array;
 
-import com.juliakram.java10cycles.datastructures.framework.DataStructure;
+import com.juliakram.java10cycles.datastructures.DataStructure;
 
 import java.util.Arrays;
 import java.util.Objects;
