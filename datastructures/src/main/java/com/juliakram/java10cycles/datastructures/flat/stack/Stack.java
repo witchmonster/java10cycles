@@ -2,10 +2,6 @@ package com.juliakram.java10cycles.datastructures.flat.stack;
 
 import com.juliakram.java10cycles.datastructures.DataStructure;
 
-/**
- * Created by yuliya.kramarenko on 02.12.2014.
- * @see java.util.Stack
- */
 public interface Stack<T> extends DataStructure<T> {
 
     T peek();

@@ -1,7 +1,6 @@
-package com.juliakram.java10cycles.algorithms.matrices;
+package com.juliakram.core.matrices;
 
 /**
- * Created by yuliya.kramarenko on 01.12.2014.
  * Assume matrix is nxn
  */
 public class RotateMatrixInPlace {
@@ -11,7 +10,9 @@ public class RotateMatrixInPlace {
         int layers = n / 2;
         for (int l = 0; l < layers; l++) {
             for (int i = l; i < n - l - 1; i++) {
+
                 int top = matrix[l][i];
+
                 matrix[l][i] = matrix[n - i - 1][l];
                 matrix[n - i - 1][l] = matrix[n - l - 1][n - i - 1];
                 matrix[n - l - 1][n - i - 1] = matrix[i][n - l - 1];

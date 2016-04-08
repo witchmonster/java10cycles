@@ -2,10 +2,6 @@ package com.juliakram.java10cycles.datastructures.flat.list;
 
 import com.juliakram.java10cycles.datastructures.flat.base.sequence.AbstractSequenceStructure;
 
-
-/**
- * Created by yuliya.kramarenko on 04.12.2014.
- */
 public class LinkedList<T> extends AbstractSequenceStructure<T> implements List<T> {
 
     @Override

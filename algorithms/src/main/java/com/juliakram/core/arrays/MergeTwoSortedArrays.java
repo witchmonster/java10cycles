@@ -1,9 +1,8 @@
-package com.juliakram.java10cycles.algorithms.arrays;
+package com.juliakram.core.arrays;
 
 import java.util.Arrays;
 
 /**
- * Created by yuliya.kramarenko on 30.11.2014.
  * Time complexity is O(n), space - O(n)
  */
 public class MergeTwoSortedArrays {
@@ -11,6 +10,7 @@ public class MergeTwoSortedArrays {
     public static void main(String[] args) {
         int[] listm = new int[]{1, 3, 56, 102, 205, 1007};
         int[] listn = new int[]{25, 26, 102, 107, 206, 305, 677, 2328, 8879};
+
         System.out.println(merge(listm, listn));
     }
 

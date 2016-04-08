@@ -4,9 +4,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by yuliya.kramarenko on 09.12.2014.
- */
 public abstract class DataStructureTest {
 
     private DataStructure<String> structure;

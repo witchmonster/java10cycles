@@ -2,13 +2,6 @@ package com.juliakram.java10cycles.datastructures.flat.list;
 
 import com.juliakram.java10cycles.datastructures.flat.base.array.AbstractArrayStructure;
 
-
-/**
- * Created by yuliya.kramarenko on 04.12.2014.
- * Custom ArrayList implementation
- *
- * @see java.util.ArrayList
- */
 public class ArrayList<T> extends AbstractArrayStructure<T> implements List<T> {
 
     public ArrayList() {

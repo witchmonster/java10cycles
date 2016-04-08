@@ -3,9 +3,6 @@ package com.juliakram.core;
 import model.BinaryOps;
 import model.constants.Complexity;
 
-/**
- * Created by juliakram on 25/02/16.
- */
 public interface BinaryAdd {
     String add(String left, String right);
 
@@ -21,6 +18,7 @@ public interface BinaryAdd {
      * Created by juliakram on 25/02/16.
      */
     class Linear extends Abstract {
+
         @Override
         public Complexity getOTime() {
             return Complexity.LINEAR;

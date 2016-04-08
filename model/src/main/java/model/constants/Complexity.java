@@ -1,8 +1,5 @@
 package model.constants;
 
-/**
- * Created by juliakram on 15/02/16.
- */
 public enum Complexity {
     LOGARITHMIC("O(lgn)"),
     CONSTANT("O(1)"),

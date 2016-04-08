@@ -1,4 +1,4 @@
-package com.juliakram.java10cycles.algorithms.various;
+package com.juliakram.core.various;
 
 
 import com.juliakram.java10cycles.datastructures.flat.stack.SequenceStack;
@@ -9,10 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-/**
- * Created by yuliya.kramarenko on 30.11.2014.
- * Time complexity is O(n), space - O(n)
- */
 public class InfixToPostfix {
 
     public static final String EXPRESSIONS_ALLOWED_PATTERN = "[A-Z]";

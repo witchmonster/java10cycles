@@ -3,9 +3,6 @@ package model;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Created by juliakram on 14/02/16.
- */
 @Getter
 public class Matrix {
 
@@ -19,6 +16,10 @@ public class Matrix {
         this.data = new int[m][n];
         this.cols = n;
         this.rows = m;
+    }
+
+    public Matrix(int[][] result) {
+        this(result.length, result[0].length);
     }
 
     public boolean isSquare() {

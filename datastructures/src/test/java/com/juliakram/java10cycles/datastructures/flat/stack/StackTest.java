@@ -8,9 +8,6 @@ import java.util.EmptyStackException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-/**
- * Created by yuliya.kramarenko on 03.12.2014.
- */
 public abstract class StackTest extends DataStructureTest {
 
     protected String[] data = new String[] {"bottom","middle","top"};

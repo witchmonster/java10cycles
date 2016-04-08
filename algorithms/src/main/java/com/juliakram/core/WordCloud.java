@@ -11,16 +11,10 @@ import static com.juliakram.core.WordCloud.Constants.delimiters;
 import static com.juliakram.core.WordCloud.Constants.minLength;
 import static com.juliakram.core.WordCloud.Constants.names;
 
-/**
- * Created by juliakram on 15/02/16.
- */
 public interface WordCloud {
 
     Map<String, Integer> buildCloud(String text);
 
-    /**
-     * Created by juliakram on 15/02/16.
-     */
     abstract class Abstract extends AbstractAlgorithm<String, Map<String, Integer>> implements WordCloud {
 
         Abstract(Complexity oTime, Complexity oSpace) {
@@ -43,7 +37,7 @@ public interface WordCloud {
             delimiters.add('.');
             delimiters.add(',');
             delimiters.add('/');
-            //        delimiters.add('&');
+//            delimiters.add('&');
             delimiters.add('(');
             delimiters.add(')');
             delimiters.add('\'');
@@ -54,9 +48,6 @@ public interface WordCloud {
         }
     }
 
-    /**
-     * Created by juliakram on 15/02/16.
-     */
     class Naive extends Abstract {
 
         public Naive() {
@@ -97,9 +88,6 @@ public interface WordCloud {
         }
     }
 
-    /**
-     * Created by juliakram on 15/02/16.
-     */
     class Linear extends Abstract {
 
         public Linear() {

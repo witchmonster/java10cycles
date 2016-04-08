@@ -4,9 +4,6 @@ import com.juliakram.java10cycles.datastructures.flat.base.array.AbstractArraySt
 
 import java.util.EmptyStackException;
 
-/**
- * Created by yuliya.kramarenko on 03.12.2014.
- */
 public class ArrayStack<T> extends AbstractArrayStructure<T> implements Stack<T> {
 
 

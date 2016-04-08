@@ -1,12 +1,10 @@
 package com.juliakram.core;
 
+
 import model.BinaryOps;
 import model.Matrix;
 import model.constants.Complexity;
 
-/**
- * Created by juliakram on 14/02/16.
- */
 public interface MatrixMultiply {
 
     Matrix multiply(Matrix a, Matrix b);
@@ -42,24 +40,26 @@ public interface MatrixMultiply {
             assert a.isMultipliableBy(b);
 
             if (a.rows == 2 && a.isSquare() && b.isSquare()) {
-                return herperMultiply(a, b);
+                int[][] result = herperMultiply(a.getData(), b.getData());
+                return new Matrix(result);
             }
 
             return new Matrix(a.rows, b.cols); //TODO asymp -> O(nˆ2), O(n^2.3729) is best known
         }
 
-        private Matrix herperMultiply(Matrix a, Matrix b) {
-            int x = a.get(0, 0) * b.get(0, 0) + a.get(0, 1) * b.get(1, 1);
-            int y = a.get(0, 0) * b.get(0, 1) + a.get(0, 1) * b.get(1, 1);
-            int z = a.get(1, 1) * b.get(0, 0) + a.get(1, 1) * b.get(1, 1);
-            int w = a.get(1, 1) * b.get(0, 1) + a.get(1, 1) * b.get(1, 1);
+        private int[][] herperMultiply(int[][] aa, int[][] bb) {
 
-            a.set(0, 0, x);
-            a.set(0, 1, y);
-            a.set(1, 1, z);
-            a.set(1, 1, w);
+            int x = aa[0][0] * bb[0][0] + aa[0][1] * bb[1][1];
+            int y = aa[0][0] * bb[0][1] + aa[0][1] * bb[1][1];
+            int z = aa[1][1] * bb[0][0] + aa[1][1] * bb[1][1];
+            int w = aa[1][1] * bb[0][1] + aa[1][1] * bb[1][1];
 
-            return a;
+            aa[0][0] = x;
+            aa[0][1] = y;
+            aa[1][1] = z;
+            aa[1][1] = w;
+
+            return aa;
         }
     }
 }

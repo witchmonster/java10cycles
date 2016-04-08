@@ -2,9 +2,6 @@ package com.juliakram.java10cycles.datastructures.flat.base.sequence;
 
 import com.juliakram.java10cycles.datastructures.DataStructure;
 
-/**
- * Created by yuliya.kramarenko on 04.12.2014.
- */
 public abstract class AbstractSequenceStructure<T> implements DataStructure<T> {
 
     protected int size;

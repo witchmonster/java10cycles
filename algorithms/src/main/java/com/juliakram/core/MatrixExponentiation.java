@@ -4,9 +4,6 @@ import model.Matrix;
 import model.ScalarOps;
 import model.constants.Complexity;
 
-/**
- * Created by juliakram on 14/02/16.
- */
 public interface MatrixExponentiation {
 
     Matrix pow(Matrix arg, int scalar);

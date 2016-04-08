@@ -5,10 +5,6 @@ import com.juliakram.java10cycles.datastructures.DataStructure;
 import java.util.Arrays;
 import java.util.Objects;
 
-/**
- * Created by yuliya.kramarenko on 04.12.2014.
- * Data structure that has array in the base, and can dynamically grow the inner array
- */
 public abstract class AbstractArrayStructure<T> implements DataStructure<T> {
 
     protected static final int DEFAULT_CAPACITY = 10;

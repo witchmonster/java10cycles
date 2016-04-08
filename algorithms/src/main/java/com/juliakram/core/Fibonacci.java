@@ -8,9 +8,6 @@ import java.util.Map;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
-/**
- * Created by juliakram on 14/02/16.
- */
 public interface Fibonacci {
     int fib(int i);
 
