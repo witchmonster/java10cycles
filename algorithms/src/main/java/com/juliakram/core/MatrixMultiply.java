@@ -1,39 +1,14 @@
 package com.juliakram.core;
 
 
-import model.BinaryOps;
 import model.Matrix;
-import model.constants.Complexity;
 
 public interface MatrixMultiply {
 
     Matrix multiply(Matrix a, Matrix b);
 
-    /**
-     * Created by juliakram on 14/02/16.
-     */
-    abstract class MatrixMultiplyAbstract implements MatrixMultiply, Algorithm<BinaryOps<Matrix>, Matrix> {
-
-        @Override
-        public Matrix solve(BinaryOps<Matrix> input) {
-            return multiply(input.left, input.right);
-        }
-    }
-
-    /**
-     * Created by juliakram on 13/02/16.
-     */
-    class MatrixMultiplyDynamic extends MatrixMultiplyAbstract {
-
-        @Override
-        public Complexity getOTime() {
-            return Complexity.POLY_3;
-        }
-
-        @Override
-        public Complexity getOSpace() {
-            return Complexity.LINEAR;
-        }
+    //time O(nˆ3), space O(n)
+    class MatrixMultiplyDynamic implements MatrixMultiply {
 
         @Override
         public Matrix multiply(Matrix a, Matrix b) {

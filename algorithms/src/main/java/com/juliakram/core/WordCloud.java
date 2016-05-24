@@ -11,21 +11,9 @@ import static com.juliakram.core.WordCloud.Constants.delimiters;
 import static com.juliakram.core.WordCloud.Constants.minLength;
 import static com.juliakram.core.WordCloud.Constants.names;
 
-public interface WordCloud {
+public interface WordCloud extends Algorithm {
 
     Map<String, Integer> buildCloud(String text);
-
-    abstract class Abstract extends AbstractAlgorithm<String, Map<String, Integer>> implements WordCloud {
-
-        Abstract(Complexity oTime, Complexity oSpace) {
-            super(oTime, oSpace);
-        }
-
-        @Override
-        public Map<String, Integer> solve(String input) {
-            return buildCloud(input);
-        }
-    }
 
     class Constants {
         static Set<Character> delimiters = new HashSet<>();
@@ -48,11 +36,7 @@ public interface WordCloud {
         }
     }
 
-    class Naive extends Abstract {
-
-        public Naive() {
-            super(Complexity.LINEAR, Complexity.LINEAR);
-        }
+    class Naive implements WordCloud {
 
         public Map<String, Integer> buildCloud(String text) {
             return easyCloud(text);
@@ -86,12 +70,18 @@ public interface WordCloud {
 
             return result;
         }
+
+        @Override
+        public Complexity complexity() {
+            return Complexity.of(Complexity.BigO.LINEAR, Complexity.BigO.LINEAR);
+        }
     }
 
-    class Linear extends Abstract {
+    class Linear implements WordCloud {
 
-        public Linear() {
-            super(Complexity.LINEAR, Complexity.LINEAR);
+        @Override
+        public Complexity complexity() {
+            return Complexity.of(Complexity.BigO.LINEAR, Complexity.BigO.LINEAR);
         }
 
         public Map<String, Integer> buildCloud(String text) {

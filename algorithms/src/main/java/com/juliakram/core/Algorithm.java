@@ -2,10 +2,10 @@ package com.juliakram.core;
 
 import model.constants.Complexity;
 
-public interface Algorithm<T, S> {
+/**
+ * Created by juliakram on 22/05/16.
+ */
+public interface Algorithm {
 
-    Complexity getOTime();
-    Complexity getOSpace();
-
-    S solve(T input);
+    Complexity complexity();
 }

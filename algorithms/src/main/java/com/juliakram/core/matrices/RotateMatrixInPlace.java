@@ -5,7 +5,7 @@ package com.juliakram.core.matrices;
  */
 public class RotateMatrixInPlace {
 
-    private static int[][] rotate(int[][] matrix) {
+    private int[][] rotate(int[][] matrix) {
         int n = matrix.length;
         int layers = n / 2;
         for (int l = 0; l < layers; l++) {
@@ -23,10 +23,11 @@ public class RotateMatrixInPlace {
     }
 
     public static void main(String[] args) {
+        RotateMatrixInPlace rotor = new RotateMatrixInPlace();
         int[][] matrix4 = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
-        printMatrix(rotate(matrix4));
+        printMatrix(rotor.rotate(matrix4));
         int[][] matrix3 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-        printMatrix(rotate(matrix3));
+        printMatrix(rotor.rotate(matrix3));
     }
 
     private static void printMatrix(int[][] matrix) {

@@ -1,7 +1,5 @@
 package com.juliakram.core;
 
-import model.constants.Complexity;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,25 +7,15 @@ import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
 public interface Fibonacci {
-    int fib(int i);
 
-    abstract class Abstract extends AbstractAlgorithm<Integer, Integer> implements Fibonacci {
+    public static void main(String[] args) {
 
-        public Abstract(Complexity oTime, Complexity oSpace) {
-            super(oTime, oSpace);
-        }
-
-        @Override
-        public Integer solve(Integer input) {
-            return fib(input);
-        }
     }
 
-    class BinetFormula extends Abstract {
+    int fib(int i);
 
-        public BinetFormula() {
-            super(Complexity.LINEAR, Complexity.CONSTANT);
-        }
+    //time O(n), space O(1)
+    class BinetFormula implements Fibonacci {
 
         @Override
         public int fib(int i) {
@@ -37,11 +25,8 @@ public interface Fibonacci {
         }
     }
 
-    class Dynamic extends Abstract {
-
-        public Dynamic() {
-            super(Complexity.LINEAR, Complexity.CONSTANT);
-        }
+    //time O(n), space O(1)
+    class Dynamic implements Fibonacci {
 
         @Override
         public int fib(int i) {
@@ -68,25 +53,20 @@ public interface Fibonacci {
         }
     }
 
-    class Matrix extends Abstract {
+    //time O(log(n)), space O(1)
+//    class Matrix implements Fibonacci {
+//
+//        @Override
+//        public int fib(int i) {
+//            return 0; //TODO
+//        }
+//
+//    }
 
-        public Matrix() {
-            super(Complexity.LOGARITHMIC, Complexity.CONSTANT);
-        }
+    //time O(1), space O(1)
+    class RecursiveMemo implements Fibonacci {
 
-        @Override
-        public int fib(int i) {
-            return 0; //TODO
-        }
-
-    }
-
-    class RecursiveMemo extends Abstract {
         Map<Integer, Integer> memo = new HashMap<>();
-
-        public RecursiveMemo() {
-            super(Complexity.CONSTANT, Complexity.CONSTANT);
-        }
 
         @Override
         public int fib(int i) {
@@ -110,11 +90,8 @@ public interface Fibonacci {
         }
     }
 
-    class Recursive extends Abstract {
-
-        public Recursive() {
-            super(Complexity.EXPONENTIAL, Complexity.LINEAR);
-        }
+    //time O(exp(n)), space O(n)
+    class Recursive implements Fibonacci {
 
         @Override
         public int fib(int i) {

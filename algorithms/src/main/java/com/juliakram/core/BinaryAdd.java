@@ -1,32 +1,20 @@
 package com.juliakram.core;
 
-import model.BinaryOps;
 import model.constants.Complexity;
 
-public interface BinaryAdd {
-    String add(String left, String right);
+public interface BinaryAdd extends Algorithm {
 
-    abstract class Abstract implements BinaryAdd, Algorithm<BinaryOps<String>, String> {
+    String add(String n1, String n2);
 
-        @Override
-        public String solve(BinaryOps<String> input) {
-            return add(input.left, input.right);
-        }
+    static void main(String[] args) {
+
     }
 
-    /**
-     * Created by juliakram on 25/02/16.
-     */
-    class Linear extends Abstract {
+    class Linear implements BinaryAdd {
 
         @Override
-        public Complexity getOTime() {
-            return Complexity.LINEAR;
-        }
-
-        @Override
-        public Complexity getOSpace() {
-            return Complexity.LINEAR;
+        public Complexity complexity() {
+            return Complexity.of(Complexity.BigO.LINEAR, Complexity.BigO.CONSTANT);
         }
 
         @Override

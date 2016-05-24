@@ -1,15 +1,10 @@
 package model;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
 public class Matrix {
 
     public final int cols;
     public final int rows;
 
-    @Setter
     private int[][] data;
 
     public Matrix(int m, int n) {
@@ -36,5 +31,9 @@ public class Matrix {
 
     public void set(int i, int j, int datum) {
         data[i][j] = datum;
+    }
+
+    public int[][] getData() {
+        return data;
     }
 }
