@@ -9,20 +9,30 @@ public interface ShiftArray extends Algorithm {
     int[] shift(int[] array, int offset);
 
     static void main(String[] args) {
-        ShiftArray polynomial = new Polynomial();
+//        test(new Polynomial());
 
-        test1(polynomial);
-        test2(polynomial);
-        test3(polynomial);
+        test(new Linear());
+    }
 
-        System.out.println(-1 % 6);
+    static void test(ShiftArray shift) {
+        int[] array = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+//        run(shift, array, 0);
+//        run(shift, array, 1);
+//        run(shift, array, 2);
+//        run(shift, array, 3);
+        run(shift, array, 4);
+        run(shift, array, 5);
+        run(shift, array, 6);
+        run(shift, array, 7);
+        run(shift, array, 8);
     }
 
     class Polynomial implements ShiftArray {
 
         @Override
         public Complexity complexity() {
-            return null;
+            return Complexity.of(Complexity.BigO.POLY_2, Complexity.BigO.CONSTANT);
         }
 
         @Override
@@ -37,6 +47,7 @@ public interface ShiftArray extends Algorithm {
 
             return shift(array, offset - 1);
         }
+
         private void shift(int[] array) {
             int tmp = array[array.length - 1];
 
@@ -49,30 +60,56 @@ public interface ShiftArray extends Algorithm {
 
     }
 
-    static void test1(ShiftArray shifter) {
-        int[] array = {1, 2, 3, 4, 5, 6};
-        int offset = 3;
+    class Linear implements ShiftArray {
 
-        test(shifter, array, offset);
+        @Override
+        public Complexity complexity() {
+            return Complexity.of(Complexity.BigO.LINEAR, Complexity.BigO.CONSTANT);
+        }
+
+        @Override
+        public int[] shift(int[] array, int offset) {
+            if (array.length == 0) {
+                return array;
+            }
+
+            int n = array.length;
+            offset = mod(offset, n);
+
+            int tmp = array[mod(n - offset, n)];
+            int i = 0;
+            int k = 0;
+
+            for (int j = 0; j < n/k; j++) {
+                int t = array[mod(i, n)];
+                array[mod(i, n)] = tmp;
+                tmp = t;
+                i = mod(i + offset, n);
+            }
+
+            return array;
+        }
+
+        public int mod(int i, int n) {
+            return i >= 0 ? i % n : (n + i) % n;
+        }
+
+        private int swap(int[] array, int i1, int i2) {
+            int tmp = array[i1];
+            array[i1] = array[i2];
+            array[i2] = tmp;
+
+            return tmp;
+        }
     }
 
-    static void test2(ShiftArray shifter) {
-        int[] array = {1, 2, 3, 4, 5, 6};
-        int offset = 1;
-
-        test(shifter, array, offset);
+    static void run(ShiftArray shifter, int[] array, int offset) {
+        System.out.println(shifter.getClass().getSimpleName() + output(shifter, array.clone(), offset));
     }
 
-    static void test3(ShiftArray shifter) {
-        int[] array = {1, 2, 3, 4, 5, 6};
-        int offset = -2;
-
-        test(shifter, array, offset);
+    static String output(ShiftArray shifter, int[] array, int offset) {
+        return " shiftby " + offset + ": " +
+                Arrays.toString(shifter.shift(array, offset));
     }
-
-    static void test(ShiftArray shifter, int[] array, int offset) {
-        System.out.println(Arrays.toString(shifter.shift(array, offset)));
-    }
-
 
 }
