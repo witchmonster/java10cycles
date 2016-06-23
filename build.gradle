@@ -22,16 +22,15 @@ allprojects {
     dependencyManagement {
         dependencies {
             dependency group: 'org.projectlombok', name: 'lombok', version: '1.16.6'
+
+
+            dependency group: 'junit', name: 'junit', version: '4.12'
         }
     }
 }
 
 subprojects {
     sourceCompatibility = 1.8
-}
-
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
 task wrapper(type: Wrapper) {

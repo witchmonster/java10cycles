@@ -4,50 +4,50 @@ import model.constants.Complexity;
 
 public interface BinaryAdd extends Algorithm {
 
-    String add(String n1, String n2);
+  static void main(String[] args) {
 
-    static void main(String[] args) {
+  }
 
+  String add(String n1, String n2);
+
+  class Linear implements BinaryAdd {
+
+    @Override
+    public Complexity complexity() {
+      return Complexity.of(Complexity.BigO.LINEAR, Complexity.BigO.CONSTANT);
     }
 
-    class Linear implements BinaryAdd {
+    @Override
+    public String add(String n1, String n2) {
+      StringBuilder sb = new StringBuilder();
 
-        @Override
-        public Complexity complexity() {
-            return Complexity.of(Complexity.BigO.LINEAR, Complexity.BigO.CONSTANT);
-        }
+      int carry = 0;
 
-        @Override
-        public String add(String n1, String n2) {
-            StringBuilder sb = new StringBuilder();
+      int l1 = n1.length() - 1;
+      int l2 = n2.length() - 1;
 
-            int carry = 0;
+      while (l1 >= 0 || l2 >= 0) {
+        int sum = 0;
 
-            int l1 = n1.length() - 1;
-            int l2 = n2.length() - 1;
+        char i1 = l1 >= 0 ? n1.charAt(l1--) : '0';
+        char i2 = l2 >= 0 ? n2.charAt(l2--) : '0';
 
-            while (l1 >= 0 || l2 >= 0) {
-                int sum = 0;
+        sum += i1 - '0' + i2 - '0' + carry;
 
-                char i1 = l1 >= 0 ? n1.charAt(l1--) : '0';
-                char i2 = l2 >= 0 ? n2.charAt(l2--) : '0';
+        carry = sum >> 1;
 
-                sum += i1 - '0' + i2 - '0' + carry;
+        sum = sum & 1;
 
-                carry = sum >> 1;
+        sb.append(sum);
+      }
 
-                sum = sum & 1;
+      if (carry == 1) {
+        sb.append(carry);
+      }
 
-                sb.append(sum);
-            }
+      sb.reverse();
 
-            if (carry == 1) {
-                sb.append(carry);
-            }
-
-            sb.reverse();
-
-            return sb.toString();
-        }
+      return sb.toString();
     }
+  }
 }

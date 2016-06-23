@@ -7,5 +7,5 @@ import model.constants.Complexity;
  */
 public interface Algorithm {
 
-    Complexity complexity();
+  Complexity complexity();
 }
