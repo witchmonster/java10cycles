@@ -30,14 +30,11 @@ public interface TempTracker extends TestableAlgorithm<Integer> {
   int getMax();
 
   @Override
-  default void input(Integer... data) {
+  default void run(Integer... data) {
     for (Integer datum : data) {
       insert(datum);
     }
-  }
 
-  @Override
-  default void output() {
     System.out.println("Mean: " + getMean());
     System.out.println("Max: " + getMax());
     System.out.println("Min: " + getMin());
@@ -48,6 +45,7 @@ public interface TempTracker extends TestableAlgorithm<Integer> {
   default void test() {
     test(1, 2, 3, 4, 5, 6, 2, 3);
     test(1, 2, 3, 4, 3);
+    test(1, 2, 3, 3);
   }
 
   class Linear implements TempTracker {

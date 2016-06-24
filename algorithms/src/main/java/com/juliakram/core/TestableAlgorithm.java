@@ -10,19 +10,14 @@ public interface TestableAlgorithm<I> extends Algorithm<I> {
   void test();
 
   default void test(I... data) {
-    input(data);
-
     System.out.println("Input data: " + Arrays.toString(data));
 
-    output();
+    run(data);
 
     printComplexity();
 
     System.out.println();
   }
 
-  void output();
-
-  void input(I... data);
-
+  void run(I... data);
 }
