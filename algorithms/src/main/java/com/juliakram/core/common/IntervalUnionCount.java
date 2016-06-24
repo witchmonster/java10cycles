@@ -1,9 +1,9 @@
-package com.juliakram.core;
+package com.juliakram.core.common;
 
 import java.util.Iterator;
 import java.util.TreeSet;
 
-public class IntervalUnion {
+public class IntervalUnionCount {
 
   public static final int MIN_INTERVAL_BOUND = -1000000000;
   public static final int MAX_INTERVAL_BOUND = 1000000000;

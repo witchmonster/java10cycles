@@ -1,4 +1,4 @@
-package com.juliakram.core.arrays;
+package com.juliakram.core.common;
 
 import java.util.Arrays;
 

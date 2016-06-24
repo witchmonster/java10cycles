@@ -1,5 +1,8 @@
-package com.juliakram.core;
+package com.juliakram.core.common;
 
+import com.juliakram.core.Algorithm;
+
+import model.constants.BigO;
 import model.constants.Complexity;
 
 public interface RotateWordsInPlace extends Algorithm {
@@ -32,7 +35,7 @@ public interface RotateWordsInPlace extends Algorithm {
 
     @Override
     public Complexity complexity() {
-      return Complexity.of(Complexity.BigO.LINEAR, Complexity.BigO.CONSTANT);
+      return Complexity.of(BigO.LINEAR, BigO.CONSTANT);
     }
 
     //the best we can do without additional array is O(n), space complexity will be O(1)

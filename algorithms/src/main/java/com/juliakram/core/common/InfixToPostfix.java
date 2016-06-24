@@ -1,4 +1,4 @@
-package com.juliakram.core.various;
+package com.juliakram.core.common;
 
 
 import com.juliakram.java10cycles.datastructures.flat.stack.SequenceStack;

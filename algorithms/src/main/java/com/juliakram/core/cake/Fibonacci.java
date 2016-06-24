@@ -1,4 +1,4 @@
-package com.juliakram.core;
+package com.juliakram.core.cake;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,6 +6,9 @@ import java.util.Map;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
+/**
+ * https://www.interviewcake.com/question/java/nth-fibonacci
+ */
 public interface Fibonacci {
 
   public static void main(String[] args) {

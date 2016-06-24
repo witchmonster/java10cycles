@@ -1,7 +1,10 @@
-package com.juliakram.core;
+package com.juliakram.core.common;
+
+import com.juliakram.core.Algorithm;
 
 import java.util.Arrays;
 
+import model.constants.BigO;
 import model.constants.Complexity;
 
 public interface ShiftArray extends Algorithm {
@@ -41,7 +44,7 @@ public interface ShiftArray extends Algorithm {
 
     @Override
     public Complexity complexity() {
-      return Complexity.of(Complexity.BigO.POLY_2, Complexity.BigO.CONSTANT);
+      return Complexity.of(BigO.POLY_2, BigO.CONSTANT);
     }
 
     @Override
@@ -73,7 +76,7 @@ public interface ShiftArray extends Algorithm {
 
     @Override
     public Complexity complexity() {
-      return Complexity.of(Complexity.BigO.LINEAR, Complexity.BigO.CONSTANT);
+      return Complexity.of(BigO.LINEAR, BigO.CONSTANT);
     }
 
     @Override

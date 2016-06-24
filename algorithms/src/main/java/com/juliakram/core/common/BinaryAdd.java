@@ -1,5 +1,8 @@
-package com.juliakram.core;
+package com.juliakram.core.common;
 
+import com.juliakram.core.Algorithm;
+
+import model.constants.BigO;
 import model.constants.Complexity;
 
 public interface BinaryAdd extends Algorithm {
@@ -14,7 +17,7 @@ public interface BinaryAdd extends Algorithm {
 
     @Override
     public Complexity complexity() {
-      return Complexity.of(Complexity.BigO.LINEAR, Complexity.BigO.CONSTANT);
+      return Complexity.of(BigO.LINEAR, BigO.CONSTANT);
     }
 
     @Override

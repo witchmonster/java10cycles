@@ -1,16 +1,22 @@
-package com.juliakram.core;
+package com.juliakram.core.cake;
+
+import com.juliakram.core.Algorithm;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import model.constants.BigO;
 import model.constants.Complexity;
 
-import static com.juliakram.core.WordCloud.Constants.delimiters;
-import static com.juliakram.core.WordCloud.Constants.minLength;
-import static com.juliakram.core.WordCloud.Constants.names;
+import static com.juliakram.core.cake.WordCloud.Constants.delimiters;
+import static com.juliakram.core.cake.WordCloud.Constants.minLength;
+import static com.juliakram.core.cake.WordCloud.Constants.names;
 
+/**
+ * https://www.interviewcake.com/question/java/word-cloud
+ */
 public interface WordCloud extends Algorithm {
 
   Map<String, Integer> buildCloud(String text);
@@ -73,7 +79,7 @@ public interface WordCloud extends Algorithm {
 
     @Override
     public Complexity complexity() {
-      return Complexity.of(Complexity.BigO.LINEAR, Complexity.BigO.LINEAR);
+      return Complexity.of(BigO.LINEAR, BigO.LINEAR);
     }
   }
 
@@ -81,7 +87,7 @@ public interface WordCloud extends Algorithm {
 
     @Override
     public Complexity complexity() {
-      return Complexity.of(Complexity.BigO.LINEAR, Complexity.BigO.LINEAR);
+      return Complexity.of(BigO.LINEAR, BigO.LINEAR);
     }
 
     public Map<String, Integer> buildCloud(String text) {

@@ -1,4 +1,4 @@
-package com.juliakram.core;
+package com.juliakram.core.common;
 
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicReference;

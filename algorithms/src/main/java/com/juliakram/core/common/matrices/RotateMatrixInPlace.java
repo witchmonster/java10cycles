@@ -1,4 +1,4 @@
-package com.juliakram.core.matrices;
+package com.juliakram.core.common.matrices;
 
 /**
  * Assume matrix is nxn

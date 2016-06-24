@@ -1,4 +1,4 @@
-package com.juliakram.core;
+package com.juliakram.core.common.matrices;
 
 import model.Matrix;
 
