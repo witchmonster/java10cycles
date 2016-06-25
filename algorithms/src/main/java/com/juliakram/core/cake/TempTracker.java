@@ -16,7 +16,7 @@ import static model.constants.Complexity.of;
 public interface TempTracker extends TestableAlgorithm<Integer> {
 
   static void main(String[] args) {
-    new Linear().test();
+    new Optimal().test();
   }
 
   void insert(int temp);
@@ -48,7 +48,7 @@ public interface TempTracker extends TestableAlgorithm<Integer> {
     test(1, 2, 3, 3);
   }
 
-  class Linear implements TempTracker {
+  class Optimal implements TempTracker {
     private int max;
     private int min;
     private double sum;

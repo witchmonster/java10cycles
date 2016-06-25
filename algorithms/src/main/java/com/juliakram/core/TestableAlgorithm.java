@@ -7,7 +7,8 @@ import java.util.Arrays;
  */
 public interface TestableAlgorithm<I> extends Algorithm<I> {
 
-  void test();
+  default void test() {
+  }
 
   default void test(I... data) {
     System.out.println("Input data: " + Arrays.toString(data));
@@ -19,5 +20,6 @@ public interface TestableAlgorithm<I> extends Algorithm<I> {
     System.out.println();
   }
 
-  void run(I... data);
+  default void run(I... data) {
+  }
 }
