@@ -24,7 +24,7 @@ public interface Fibonacci extends TestableAlgorithm<Integer> {
     new BinetFormula().test();
     new Dynamic().test();
     new RecursiveMemo().test();
-    new Recursive().test();
+//    new Recursive().test();
   }
 
   BigInteger fib(int i);

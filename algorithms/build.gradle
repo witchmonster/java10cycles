@@ -3,4 +3,7 @@ dependencies {
     compile project(':model')
 
     compile(group: 'org.projectlombok', name: 'lombok')
+    compile "org.codehaus.groovy:groovy-all"
+    testCompile 'org.spockframework:spock-core'
+    testCompile 'junit:junit'
 }

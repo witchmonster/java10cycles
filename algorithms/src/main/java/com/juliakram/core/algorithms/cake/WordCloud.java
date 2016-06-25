@@ -1,6 +1,6 @@
 package com.juliakram.core.algorithms.cake;
 
-import com.juliakram.core.Algorithm;
+import com.juliakram.core.TestableAlgorithm;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,9 +17,29 @@ import static com.juliakram.core.algorithms.cake.WordCloud.Constants.names;
 /**
  * https://www.interviewcake.com/question/java/word-cloud
  */
-public interface WordCloud extends Algorithm {
+public interface WordCloud extends TestableAlgorithm<String> {
+
+  static void main(String[] args) {
+    new Naive().test();
+    new Linear().test();
+  }
 
   Map<String, Integer> buildCloud(String text);
+
+  @Override
+  default void test() {
+    test(
+            "After beating the eggs, Dana read the next step:",
+            "Add milk and eggs, then add flour and sugar."
+    );
+  }
+
+  @Override
+  default void out(String... data) {
+    for (String datum : data) {
+      System.out.println(buildCloud(datum));
+    }
+  }
 
   class Constants {
     static Set<Character> delimiters = new HashSet<>();
