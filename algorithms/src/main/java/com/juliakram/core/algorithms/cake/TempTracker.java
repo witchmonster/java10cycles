@@ -1,4 +1,4 @@
-package com.juliakram.core.cake;
+package com.juliakram.core.algorithms.cake;
 
 import com.juliakram.core.TestableAlgorithm;
 
@@ -30,7 +30,7 @@ public interface TempTracker extends TestableAlgorithm<Integer> {
   int getMax();
 
   @Override
-  default void run(Integer... data) {
+  default void out(Integer... data) {
     for (Integer datum : data) {
       insert(datum);
     }

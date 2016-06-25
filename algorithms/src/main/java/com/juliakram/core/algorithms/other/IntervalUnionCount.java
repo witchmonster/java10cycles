@@ -1,4 +1,4 @@
-package com.juliakram.core.common;
+package com.juliakram.core.algorithms.other;
 
 import java.util.Iterator;
 import java.util.TreeSet;

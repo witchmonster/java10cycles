@@ -5,21 +5,20 @@ import java.util.Arrays;
 /**
  * Created by juliakram on 24/06/16.
  */
-public interface TestableAlgorithm<I> extends Algorithm<I> {
+public interface TestableAlgorithm<I> extends Algorithm {
 
-  default void test() {
-  }
+  void test();
 
   default void test(I... data) {
+    System.out.println("Test for " + getClass().getName());
     System.out.println("Input data: " + Arrays.toString(data));
 
-    run(data);
+    out(data);
 
     printComplexity();
 
     System.out.println();
   }
 
-  default void run(I... data) {
-  }
+  void out(I... data);
 }

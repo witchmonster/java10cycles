@@ -1,4 +1,4 @@
-package com.juliakram.core.cake;
+package com.juliakram.core.algorithms.cake;
 
 import com.juliakram.core.TestableAlgorithm;
 
@@ -9,7 +9,7 @@ import java.util.List;
 import model.constants.BigO;
 import model.constants.Complexity;
 
-import static com.juliakram.core.cake.IntervalUnion.Meeting.of;
+import static com.juliakram.core.algorithms.cake.IntervalUnion.Meeting.of;
 
 /**
  * https://www.interviewcake.com/question/java/merging-ranges
@@ -27,7 +27,7 @@ public interface IntervalUnion extends TestableAlgorithm<IntervalUnion.Meeting> 
     test(of(1,2), of(9,10), of(2,4), of(1,3));
   }
 
-  default void run(Meeting... meetings) {
+  default void out(Meeting... meetings) {
     System.out.println(getUnion(Arrays.asList(meetings)));
   }
 

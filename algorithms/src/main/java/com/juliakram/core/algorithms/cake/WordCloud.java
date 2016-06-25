@@ -1,4 +1,4 @@
-package com.juliakram.core.cake;
+package com.juliakram.core.algorithms.cake;
 
 import com.juliakram.core.Algorithm;
 
@@ -10,9 +10,9 @@ import java.util.Set;
 import model.constants.BigO;
 import model.constants.Complexity;
 
-import static com.juliakram.core.cake.WordCloud.Constants.delimiters;
-import static com.juliakram.core.cake.WordCloud.Constants.minLength;
-import static com.juliakram.core.cake.WordCloud.Constants.names;
+import static com.juliakram.core.algorithms.cake.WordCloud.Constants.delimiters;
+import static com.juliakram.core.algorithms.cake.WordCloud.Constants.minLength;
+import static com.juliakram.core.algorithms.cake.WordCloud.Constants.names;
 
 /**
  * https://www.interviewcake.com/question/java/word-cloud
