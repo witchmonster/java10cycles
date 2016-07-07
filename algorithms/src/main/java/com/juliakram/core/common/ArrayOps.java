@@ -1,5 +1,7 @@
 package com.juliakram.core.common;
 
+import java.math.BigInteger;
+
 /**
  * Created by juliakram on 25/06/16.
  */
@@ -23,5 +25,15 @@ public interface ArrayOps {
     }
 
     return array;
+  }
+
+  static BigInteger[] toBigIntegerArray(int[] ints) {
+    BigInteger[] result = new BigInteger[ints.length];
+
+    for (int i = 0; i < ints.length; i++) {
+      result[i] = BigInteger.valueOf(ints[i]);
+    }
+
+    return result;
   }
 }
