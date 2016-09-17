@@ -35,7 +35,7 @@ public interface WordCloud extends TestableAlgorithm<String> {
   }
 
   @Override
-  default void out(String... data) {
+  default void printResult(String... data) {
     for (String datum : data) {
       System.out.println(buildCloud(datum));
     }

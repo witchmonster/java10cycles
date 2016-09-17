@@ -27,7 +27,7 @@ public interface IntervalUnion extends TestableAlgorithm<IntervalUnion.Meeting> 
     test(of(1,2), of(9,10), of(2,4), of(1,3));
   }
 
-  default void out(Meeting... meetings) {
+  default void printResult(Meeting... meetings) {
     System.out.println(getUnion(Arrays.asList(meetings)));
   }
 

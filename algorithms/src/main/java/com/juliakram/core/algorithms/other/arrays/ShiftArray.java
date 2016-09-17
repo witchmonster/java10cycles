@@ -18,10 +18,10 @@ public interface ShiftArray extends Algorithm {
   static void test(ShiftArray shift) {
     int[] array = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
-//        out(shift, array, 0);
-//        out(shift, array, 1);
-//        out(shift, array, 2);
-//        out(shift, array, 3);
+//        printResult(shift, array, 0);
+//        printResult(shift, array, 1);
+//        printResult(shift, array, 2);
+//        printResult(shift, array, 3);
     run(shift, array, 4);
     run(shift, array, 5);
     run(shift, array, 6);

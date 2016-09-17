@@ -28,7 +28,7 @@ public interface AppleStocks extends TestableAlgorithm<Integer> {
   }
 
   @Override
-  default void out(Integer... data) {
+  default void printResult(Integer... data) {
     System.out.println("Max profit: " + getMaxProfit(ArrayOps.autoUnbox(data)));
   }
 

@@ -4,6 +4,7 @@ import com.juliakram.core.TestableAlgorithm;
 import com.juliakram.core.common.ArrayOps;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import model.constants.BigO;
@@ -17,8 +18,17 @@ import static java.math.BigInteger.valueOf;
 public interface ProductOfOther extends TestableAlgorithm<Integer> {
 
   static void main(String[] args) {
-    new Optimal().test();
+//    new Optimal().test();
 
+
+
+    ArrayList<String> list = new ArrayList<>();
+    list.add(null);
+    list.add(null);
+    list.add(null);
+    list.add(null);
+
+    System.out.println(list.stream().findAny());
   }
 
   BigInteger[] getProductsOfAllIntsExceptAtIndex(int[] ints);
@@ -30,7 +40,7 @@ public interface ProductOfOther extends TestableAlgorithm<Integer> {
   }
 
   @Override
-  default void out(Integer... data) {
+  default void printResult(Integer... data) {
     System.out.println(Arrays.toString(getProductsOfAllIntsExceptAtIndex(ArrayOps.autoUnbox(data))));
   }
 

@@ -35,7 +35,7 @@ public interface Fibonacci extends TestableAlgorithm<Integer> {
   }
 
   @Override
-  default void out(Integer... data) {
+  default void printResult(Integer... data) {
     for (Integer datum : data) {
       System.out.println("fib[" + datum + "]: " + fib(datum));
     }

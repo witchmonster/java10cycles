@@ -29,7 +29,7 @@ public interface BigSqrt extends TestableAlgorithm<BigDecimal> {
   }
 
   @Override
-  default void out(BigDecimal... data) {
+  default void printResult(BigDecimal... data) {
     for (BigDecimal datum : data) {
       System.out.println("sqrt(" + datum + ")=" + bigSqrt(datum, 100));
     }

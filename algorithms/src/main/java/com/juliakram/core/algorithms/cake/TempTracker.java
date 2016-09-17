@@ -30,7 +30,7 @@ public interface TempTracker extends TestableAlgorithm<Integer> {
   int getMax();
 
   @Override
-  default void out(Integer... data) {
+  default void printResult(Integer... data) {
     for (Integer datum : data) {
       insert(datum);
     }

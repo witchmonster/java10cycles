@@ -13,12 +13,12 @@ public interface TestableAlgorithm<I> extends Algorithm {
     System.out.println("Test for " + getClass().getName());
     System.out.println("Input data: " + Arrays.toString(data));
 
-    out(data);
+    printResult(data);
 
     printComplexity();
 
     System.out.println();
   }
 
-  void out(I... data);
+  void printResult(I... data);
 }
