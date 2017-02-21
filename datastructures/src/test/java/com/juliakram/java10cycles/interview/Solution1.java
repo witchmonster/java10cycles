@@ -1,4 +1,4 @@
-package com.juliakram.java10cycles.datastructures;
+package com.juliakram.java10cycles.interview;
 
 
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.HashMap;
 /**
  * Created by jkramr on 2/6/17.
  */
-class Solution {
+class Solution1 {
     public String solution(int N, String S, String T) {
         // write your code in Java SE 8
 
@@ -56,7 +56,7 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        Solution algorithm = new Solution();
+        Solution1 algorithm = new Solution1();
 
         System.out.println(algorithm.solution(4, "1B 2C,2D 4D", "2B 2D 3D 4D 4A"));
     }
