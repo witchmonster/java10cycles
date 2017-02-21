@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Created by jkramr on 2/6/17.
  */
-class Solution5 {
+class OverloadedCallCenter {
     public void solve(String[] args) {
 
         if (args.length < 2) {
@@ -68,7 +68,7 @@ class Solution5 {
 
 
     public static void main(String[] args) {
-        Solution5 algorithm = new Solution5();
+        OverloadedCallCenter algorithm = new OverloadedCallCenter();
 
         args = new String[]{
                 new String("1"),
@@ -76,7 +76,6 @@ class Solution5 {
                 new String("1481122000 1481122020"),
                 new String("1481122000 1481122040"),
                 new String("1481122030 1481122035")};
-
 
         algorithm.solve(args);
     }

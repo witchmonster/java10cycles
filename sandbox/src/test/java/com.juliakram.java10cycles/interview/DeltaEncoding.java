@@ -1,13 +1,10 @@
 package com.juliakram.java10cycles.interview;
 
 
-import java.util.Comparator;
-import java.util.TreeMap;
-
 /**
  * Created by jkramr on 2/6/17.
  */
-class Solution4 {
+class DeltaEncoding {
     public void solve(String input) {
 
         String[] integers = input.split(" ");
@@ -36,7 +33,7 @@ class Solution4 {
     }
 
     public static void main(String[] args) {
-        Solution4 algorithm = new Solution4();
+        DeltaEncoding algorithm = new DeltaEncoding();
 
         algorithm.solve("25626 25757 24367 24267 16 100 2 7277");
     }

@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Created by jkramr on 2/6/17.
  */
-class Solution9 {
+class ZombieClusters {
 
     static int zombieCluster(String[] zombies) {
 

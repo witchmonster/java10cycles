@@ -1,4 +1,4 @@
-package com.juliakram.java10cycles.amazon.interview;
+package com.juliakram.java10cycles.interview;
 
 
 import java.util.*;

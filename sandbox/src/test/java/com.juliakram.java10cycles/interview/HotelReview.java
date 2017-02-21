@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Created by jkramr on 2/6/17.
  */
-class Solution3 {
+class HotelReview {
     public void solve(String... args) {
 
         if (args.length == 0) {
@@ -42,7 +42,7 @@ class Solution3 {
     }
 
     public static void main(String[] args) {
-        Solution3 algorithm = new Solution3();
+        HotelReview algorithm = new HotelReview();
 
         args = new String[]{new String("breakfast beach citycenter location metro view staff price"),
                 new String("5"),
