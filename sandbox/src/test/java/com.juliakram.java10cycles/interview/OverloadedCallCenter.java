@@ -28,7 +28,7 @@ class OverloadedCallCenter {
             calls.add(new Interval(call));
         }
 
-        calls.sort((o1, o2) -> o1.startTime.compareTo(o2.startTime));
+        calls.sort(Comparator.comparing(o -> o.startTime));
 
         Interval previousCall = calls.get(0);
 
