@@ -1,9 +1,11 @@
 package com.juliakram.java10cycles.interview;
 
 import com.juliakram.java10cycles.algorithms.GraphUtil;
+
 import java.util.*;
 
-import static com.juliakram.java10cycles.algorithms.GraphUtil.dfs;
+import static com.juliakram.java10cycles.algorithms.GraphUtil.dfsRecursive;
+import static com.juliakram.java10cycles.algorithms.GraphUtil.dfsRecursiveWithDepth;
 
 /**
  * Created by jkramr on 2/6/17.
@@ -16,27 +18,29 @@ class ZombieClusters {
             return 0;
         }
 
-        Graph zombieGraph = populateGraph(zombies);
+        HashMap<Integer, ZombieNode> zombieGraph = populateGraph(zombies);
 
         if (zombieGraph == null) {
             return 0;
         }
 
-        return dfsrCountConnectedComponents(zombieGraph);
+        return countGraphConnectedComponents(zombieGraph);
     }
 
-    private static int dfsrCountConnectedComponents(Graph zombieGraph) {
-        TreeSet<Graph.ZombieNode> unvisitedNodes = new TreeSet<>();
+    private static int countGraphConnectedComponents(HashMap<Integer, ZombieNode> zombieGraph) {
+        TreeSet<ZombieNode> unvisitedNodes = new TreeSet<>();
 
-        unvisitedNodes.addAll(zombieGraph.getNodes().values());
+        unvisitedNodes.addAll(zombieGraph.values());
 
         int connectedComponents = 0;
 
         while (!unvisitedNodes.isEmpty()) {
 
-            dfs(unvisitedNodes);
-//            dfs(unvisitedNodes);
-//            bfs(unvisitedNodes);
+//            dfsIterative(unvisitedNodes);
+//            bfsIterative(unvisitedNodes);
+//            bfsWithDepth(unvisitedNodes);
+//            dfsRecursive(unvisitedNodes.first(), unvisitedNodes);
+            dfsRecursiveWithDepth(unvisitedNodes.first(), unvisitedNodes);
 
             connectedComponents++;
         }
@@ -44,67 +48,49 @@ class ZombieClusters {
         return connectedComponents;
     }
 
-    private static Graph populateGraph(String[] zombies) {
-        Graph zombieGraph = new Graph(zombies.length);
+    private static HashMap<Integer, ZombieNode> populateGraph(String[] zombies) {
+        HashMap<Integer, ZombieNode> graph = new HashMap<>();
+
+        for (int i = 0; i < zombies.length; i++) {
+            graph.put(i, new ZombieNode(i));
+        }
 
         for (int i = 0; i < zombies.length; i++) {
             if (zombies[i].length() != zombies.length) {
-                zombieGraph = null;
+                return null;
             }
 
             for (int j = i + 1; j < zombies.length; j++) { //matrix is symmetrical
                 if (i != j && zombies[i].charAt(j) == '1') {
-                    zombieGraph.add(i, j);
+                    ZombieNode node = graph.get(i);
+                    ZombieNode neighborNode = graph.get(j);
+                    node.add(neighborNode);
+                    neighborNode.add(node);
                 }
             }
         }
-        return zombieGraph;
+
+        return graph;
     }
 
 
-    private static class Graph {
+    private static class ZombieNode
+            extends GraphUtil.Node
+            implements Comparable<ZombieNode> {
 
-        private HashMap<Integer, ZombieNode> nodes;
+        private Integer value;
 
-        public Graph(int nodeCount) {
-            this.setNodes(new HashMap<>());
-            for (int i = 0; i < nodeCount; i++) {
-                ZombieNode node = new ZombieNode(i);
-                getNodes().put(i, node);
-            }
+        public ZombieNode(int id) {
+            this.value = id;
         }
 
-        public void add(int i, int j) {
-            ZombieNode node = getNodes().get(i);
-            ZombieNode neighborNode = getNodes().get(j);
-            node.add(neighborNode);
-            neighborNode.add(node);
+        @Override
+        public int compareTo(ZombieNode o) {
+            return this.getValue().compareTo(o.getValue());
         }
 
-        public HashMap<Integer, ZombieNode> getNodes() {
-            return nodes;
-        }
-
-        void setNodes(HashMap<Integer, ZombieNode> nodes) {
-            this.nodes = nodes;
-        }
-
-        private class ZombieNode extends GraphUtil.Node implements Comparable<ZombieNode> {
-
-            private Integer value;
-
-            public ZombieNode(int id) {
-                this.value = id;
-            }
-
-            @Override
-            public int compareTo(ZombieNode o) {
-                return this.getValue().compareTo(o.getValue());
-            }
-
-            public Integer getValue() {
-                return value;
-            }
+        public Integer getValue() {
+            return value;
         }
     }
 

@@ -1,16 +1,13 @@
 package com.juliakram.java10cycles.algorithms;
 
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Stack;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Created by jkramr on 2/22/17.
  */
 public class GraphUtil {
 
-    public static void bfs(TreeSet<? extends Node> unvisitedVertices) {
+    public static void bfsIterative(TreeSet<? extends Node> unvisitedVertices) {
         Queue<Node> queue = new PriorityQueue<>();
 
         Node clusterRoot = unvisitedVertices.first();
@@ -36,7 +33,7 @@ public class GraphUtil {
         }
     }
 
-    public static void dfs(TreeSet<? extends Node> unvisitedNodes) {
+    public static void dfsIterative(TreeSet<? extends Node> unvisitedNodes) {
         Node current = unvisitedNodes.first();
 
         Stack<Node> stack = new Stack<>();
@@ -63,19 +60,29 @@ public class GraphUtil {
         }
     }
 
-    public static void dfsRecursive(TreeSet<? extends Node> unvisitedNodes) {
-        Node current = unvisitedNodes.first();
-
+    public static void dfsRecursive(Node current, TreeSet<? extends Node> unvisitedNodes) {
         unvisitedNodes.remove(current);
 
         for (Node neighbor : current.getNeighbours()) {
             if (unvisitedNodes.contains(neighbor)) {
-                dfsRecursive(unvisitedNodes);
+                dfsRecursive(neighbor, unvisitedNodes);
             }
         }
     }
 
-    public static void bfsWithDepthTracking(TreeSet<? extends Node> unvisitedNodes) {
+    public static void dfsRecursiveWithDepth(Node current, TreeSet<? extends Node> unvisitedNodes) {
+        unvisitedNodes.remove(current);
+        int currentDepth = current.depth;
+
+        for (Node neighbor : current.getNeighbours()) {
+            if (unvisitedNodes.contains(neighbor)) {
+                neighbor.depth = currentDepth + 1;
+                dfsRecursiveWithDepth(neighbor, unvisitedNodes);
+            }
+        }
+    }
+
+    public static void bfsWithDepth(TreeSet<? extends Node> unvisitedNodes) {
         Queue<Node> queue = new PriorityQueue<>();
 
         int currentDepth = 0;
@@ -95,11 +102,11 @@ public class GraphUtil {
                 return;
             }
 
-            for (Node neigbour : neighbours) {
-                if (unvisitedNodes.contains(neigbour)) {
-                    neigbour.depth = currentDepth + 1;
-                    queue.add(neigbour);
-                    unvisitedNodes.remove(neigbour);
+            for (Node neighbour : neighbours) {
+                if (unvisitedNodes.contains(neighbour)) {
+                    neighbour.depth = currentDepth + 1;
+                    queue.add(neighbour);
+                    unvisitedNodes.remove(neighbour);
                 }
             }
         }
