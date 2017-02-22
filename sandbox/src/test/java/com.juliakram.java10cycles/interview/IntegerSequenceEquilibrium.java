@@ -4,7 +4,7 @@ package com.juliakram.java10cycles.interview;
 /**
  * Created by jkramr on 2/6/17.
  */
-class Solution0 {
+class IntegerSequenceEquilibrium {
     public int solution(int[] A) {
         int equilibrium = -1;
 
@@ -37,7 +37,7 @@ class Solution0 {
     }
 
     public static void main(String[] args) {
-        Solution0 algorithm = new Solution0();
+        IntegerSequenceEquilibrium algorithm = new IntegerSequenceEquilibrium();
 
         System.out.println(algorithm.solution(new int[]{-1, 3, -4, 5, 1, -6, 2, 1}));
     }

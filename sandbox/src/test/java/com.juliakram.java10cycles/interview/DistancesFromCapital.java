@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Created by jkramr on 2/6/17.
  */
-class Solution2 {
+class DistancesFromCapital {
     public int[] solution(int[] T) {
 
         int M = T.length;
@@ -106,7 +106,7 @@ class Solution2 {
     }
 
     public static void main(String[] args) {
-        Solution2 algorithm = new Solution2();
+        DistancesFromCapital algorithm = new DistancesFromCapital();
 
         System.out.println(Arrays.toString(algorithm.solution(new int[]{9, 1, 4, 9, 0, 4, 8, 9, 0, 1})));
     }
