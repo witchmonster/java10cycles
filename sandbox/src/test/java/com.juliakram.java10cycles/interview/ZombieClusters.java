@@ -36,10 +36,6 @@ class ZombieClusters {
 
         while (!unvisitedNodes.isEmpty()) {
 
-//            dfsIterative(unvisitedNodes);
-//            bfsIterative(unvisitedNodes);
-//            bfsWithDepth(unvisitedNodes);
-//            dfsRecursive(unvisitedNodes.first(), unvisitedNodes);
             dfsRecursiveWithDepth(unvisitedNodes.first(), unvisitedNodes);
 
             connectedComponents++;
