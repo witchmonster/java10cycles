@@ -1,7 +1,10 @@
 package com.juliakram.java10cycles.interview;
 
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 /**
  * Created by jkramr on 2/6/17.
@@ -15,20 +18,41 @@ class BattleShipGame {
 
         //used lib to split for simplicity because performance is not a priority
         //wasted a bit of space for the same reason
-        String[] hitArray = S.split(" ");
+        TreeSet<String> shots = new TreeSet<>(Arrays.asList(T.split(" ")));
 
-        HashMap<String, Integer> shipHitPoints = populateShips(S);
+        HashSet<String> hits = new HashSet<>();
+        HashMap<String, String> ships = populateShips(S);
 
-        for (String hit : hitArray) {
-            Integer shipHitPointsLeft = shipHitPoints.get(hit);
+        while (!shots.isEmpty()) {
+            String shot = shots.first();
+            String neighborCell = ships.get(shot);
+            shots.remove(shot);
 
-            if (shipHitPointsLeft != null) {
-                if (shipHitPointsLeft > 0) {
-                    hitShips++;
-                    shipHitPointsLeft--;
+            if (neighborCell != null) {
+                hitShips++;
+                hits.add(shot);
 
-                    shipHitPoints.put(hit, shipHitPointsLeft);
-                    if (shipHitPointsLeft == 0) {
+                //single ship, it dies
+                if (neighborCell.equals(shot)) {
+                    sunkShips++;
+                } else {
+                    String current = neighborCell;
+                    int totalHP = 0;
+
+                    while (!current.equals(shot)) {
+                        totalHP++;
+
+                        if (shots.contains(current)) {
+                            totalHP--;
+                            shots.remove(current);
+                        } else if (hits.contains(current)) {
+                            totalHP--;
+                        }
+
+                        current = ships.get(current);
+                    }
+
+                    if (totalHP == 0) {
                         sunkShips++;
                     }
                 }
@@ -38,47 +62,31 @@ class BattleShipGame {
         return sunkShips + "," + hitShips;
     }
 
-    private HashMap<String, Integer> populateShips(String s) {
+    private HashMap<String, String> populateShips(String s) {
         String[] stringShips = s.split(",");
 
-        HashMap<String, Integer> shipsHitMap = new HashMap<>();
+        HashMap<String, String> ships = new HashMap<>();
 
         for (String stringShip : stringShips) {
+            String[] hits = stringShip.split(" ");
 
-            String[] shipHitPoints = stringShip.split(" ");
+            String head = hits[0];
+            String current = head;
 
-            for (String shipHitPoint : shipHitPoints) {
-                shipsHitMap.put(shipHitPoint, shipHitPoints.length);
+            for (int i = 0; i < hits.length; i++) {
+                String next = i == hits.length - 1 ? head : hits[i + 1];
+                ships.put(current, next);
+                current = next;
             }
         }
 
-        return shipsHitMap;
+        return ships;
     }
 
     public static void main(String[] args) {
         BattleShipGame algorithm = new BattleShipGame();
 
-        System.out.println(algorithm.solution(4, "1B 2C,2D 4D", "2B 2D 3D 4D 4A"));
+        System.out.println(algorithm.solution(4, "1B 2C,2D 3D 4D,6D", "2B 2C 2D 3D 4D 4A 6D"));
     }
 
-//    private class Ship {
-//
-//        private int hitPoints;
-//        private boolean isHit;
-//        private boolean isSunk;
-//
-//        public Ship(String[] shipHitPoints) {
-//            this.hitPoints = shipHitPoints.length;
-//        }
-//
-//        public int getHitPoints() {
-//            return hitPoints;
-//        }
-//
-//        public int hit() {
-//            this.isHit = true;
-//            this.hitPoints = hitPoints >= 1 ? hitPoints-- : 0;
-//            this.isSunk = hitPoints == 0;
-//        }
-//    }
 }
