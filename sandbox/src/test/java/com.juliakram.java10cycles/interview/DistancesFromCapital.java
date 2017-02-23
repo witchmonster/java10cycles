@@ -1,6 +1,5 @@
 package com.juliakram.java10cycles.interview;
 
-
 import java.util.*;
 
 /**
@@ -15,47 +14,41 @@ class DistancesFromCapital {
 
         int[] distances = new int[M - 1];
 
-        TreeMap<Integer, Node> map = new TreeMap<>();
+        HashMap<Integer, Node> map = new HashMap<>();
 
         for (int i = 0; i < M; i++) {
+
+            map.putIfAbsent(i, new Node(i));
             Node city = map.get(i);
-            if (city == null) {
-                city = new Node(i);
-                map.put(i, city);
-            }
 
             if (i == T[i]) {
                 capital = city;
             } else {
+                map.putIfAbsent(T[i], new Node(T[i]));
                 Node neighbor = map.get(T[i]);
 
-                if (neighbor == null) {
-                    neighbor = new Node(T[i]);
-                    map.put(T[i], neighbor);
-                }
-
-                city.addNeighbor(neighbor);
-                neighbor.addNeighbor(city);
+                city.neighbors.add(neighbor);
+                neighbor.neighbors.add(city);
             }
         }
 
-        Queue<Node> bfsQueue = new PriorityQueue<>();
+        Queue<Node> queue = new PriorityQueue<>();
+        HashSet<Node> visited = new HashSet<>();
 
-        int currentDepth = 0;
-        bfsQueue.add(capital);
+        int currentDepth;
+        queue.add(capital);
+        visited.add(capital);
 
-        while (!bfsQueue.isEmpty()) {
-            Node current = bfsQueue.poll();
+        while (!queue.isEmpty()) {
+            Node current = queue.poll();
             currentDepth = current.depth;
 
-            TreeSet<Node> neighbors = current.getNeighbors();
-
-            for (Node neighbor : neighbors) {
-                if (!neighbor.isVisited()) {
+            for (Node neighbor : current.neighbors) {
+                if (!visited.contains(neighbor)) {
                     neighbor.depth = currentDepth + 1;
                     distances[currentDepth]++;
-                    bfsQueue.add(neighbor);
-                    current.setVisited();
+                    queue.add(neighbor);
+                    visited.add(neighbor);
                 }
             }
         }
@@ -67,41 +60,15 @@ class DistancesFromCapital {
         private Integer id;
         private int depth;
 
-        private TreeSet<Node> neighbors = new TreeSet<>();
-        private boolean isVisited;
+        private HashSet<Node> neighbors = new HashSet<>();
 
         public Node(int id) {
             this.id = id;
         }
 
-        public void addNeighbor(Node neighbor) {
-            neighbors.add(neighbor);
-        }
-
-        public void setVisited() {
-            this.isVisited = true;
-        }
-
-        public boolean isVisited() {
-            return isVisited;
-        }
-
-        public TreeSet<Node> getNeighbors() {
-            return neighbors;
-        }
-
         @Override
         public int compareTo(Node o) {
             return this.id.compareTo(o.id);
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(id);
-        }
-
-        public boolean allNeighborsVisited() {
-            return neighbors.stream().allMatch(Node::isVisited);
         }
     }
 
