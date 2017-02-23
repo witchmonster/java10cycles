@@ -16,8 +16,6 @@ class BattleShipGame {
         int sunkShips = 0;
         int hitShips = 0;
 
-        //used lib to split for simplicity because performance is not a priority
-        //wasted a bit of space for the same reason
         TreeSet<String> shots = new TreeSet<>(Arrays.asList(T.split(" ")));
 
         HashSet<String> hits = new HashSet<>();
