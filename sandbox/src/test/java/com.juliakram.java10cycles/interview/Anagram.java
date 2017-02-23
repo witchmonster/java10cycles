@@ -1,59 +1,61 @@
 package com.juliakram.java10cycles.interview;
 
 
+import java.util.HashMap;
+
 /**
  * Created by jkramr on 2/6/17.
  */
 class Anagram {
 
     public static void main(String[] args) {
-        Anagram algorithm = new Anagram();
-
         args = new String[]{
-                new String("5"),
-                new String("aaabbb"),
-                new String("ab"),
-                new String("abc"),
-                new String("abc"),
-                new String("mnop"),
-                new String("abcdabcd")};
+                "aaabbb",
+                "ab",
+                "abc",
+                "mnop",
+                "abcdabcd"
+        };
 
-        if (args.length < 2) {
-            return;
-        }
-
-        int testCaseCount = Integer.parseInt(args[0]);
-
-        if (args.length < testCaseCount + 1) {
-            return;
-        }
-
-        for (int i = 1; i < args.length; i++) {
-            checkForAnagram(args[i]);
+        for (int i = 0; i < args.length; i++) {
+            System.out.println(checkForAnagram(args[i]));
         }
 
     }
 
-    private static void checkForAnagram(String string) {
+    private static int checkForAnagram(String string) {
 
         if (string.length() % 2 != 0) {
-            System.out.println(-1);
+            return -1;
         }
 
         int halfLength = string.length() / 2;
 
-        String aString = string.substring(0, halfLength);
-        String bString = string.substring(halfLength, string.length());
+        int neededPermutations = 0;
 
-        int neededPermutations = halfLength;
+        String left = string.substring(0, halfLength);
+        String right = string.substring(halfLength, string.length());
 
-        for (int i = 0; i < halfLength; i++) {
-            if (aString.charAt(i) == bString.charAt(halfLength - 1 - i)) {
-                neededPermutations--;
+        HashMap<Character, Character> map = toCharacterMap(left);
+
+        for (char c : right.toCharArray()) {
+            if (map.get(c) == null) {
+                neededPermutations++;
+                map.remove(c);
             }
         }
 
-        System.out.println(neededPermutations);
+        return neededPermutations;
+    }
+
+    private static HashMap<Character, Character> toCharacterMap(String a) {
+        HashMap<Character, Character> map = new HashMap<>();
+
+        for (char c : a.toCharArray()) {
+            map.put(c, c);
+        }
+
+        return map;
     }
 
 }
