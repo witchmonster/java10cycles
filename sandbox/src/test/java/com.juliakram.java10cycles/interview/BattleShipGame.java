@@ -73,26 +73,16 @@ class BattleShipGame {
         return ships;
     }
 
-    public static void main(String[] args) {
-        BattleShipGame algorithm = new BattleShipGame();
-
-        System.out.println(algorithm.solution1(4, "1B 2C,2D 3D 4D,6D", "2B 2C 2D 3D 4D 4A 6D"));
-        System.out.println(algorithm.solution2(4, "1B 2C,2D 3D 4D,6D", "2B 2C 2D 3D 4D 4A 6D"));
-    }
-
     private String solution2(int i, String S, String T) {
 
         int sunkShips = 0;
         int hitShips = 0;
 
-        TreeSet<String> shots = new TreeSet<>(Arrays.asList(T.split(" ")));
+        HashSet<String> shots = new HashSet<>(Arrays.asList(T.split(" ")));
 
         HashMap<String, Ship> ships = populateShips2(S);
 
-        while (!shots.isEmpty()) {
-            String shot = shots.first();
-            shots.remove(shot);
-
+        for (String shot : shots) {
             Ship ship = ships.get(shot);
             if (ship != null) {
                 if (!ship.isHit) {
@@ -127,11 +117,19 @@ class BattleShipGame {
     }
 
     private class Ship {
+
         private int hp;
         public boolean isHit;
-
         public Ship(int hp) {
             this.hp = hp;
         }
+
+    }
+
+    public static void main(String[] args) {
+        BattleShipGame algorithm = new BattleShipGame();
+
+        System.out.println(algorithm.solution1(4, "1B 2C,2D 3D 4D,6D", "2B 2C 2D 3D 4D 4A 6D"));
+        System.out.println(algorithm.solution2(4, "1B 2C,2D 3D 4D,6D", "2B 2C 2D 3D 4D 4A 6D"));
     }
 }
