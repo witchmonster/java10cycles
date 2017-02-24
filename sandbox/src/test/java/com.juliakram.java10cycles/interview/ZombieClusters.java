@@ -1,11 +1,6 @@
 package com.juliakram.java10cycles.interview;
 
-import com.juliakram.java10cycles.algorithms.GraphUtil;
-
 import java.util.*;
-
-import static com.juliakram.java10cycles.algorithms.GraphUtil.dfsRecursive;
-import static com.juliakram.java10cycles.algorithms.GraphUtil.dfsRecursiveWithDepth;
 
 /**
  * Created by jkramr on 2/6/17.
@@ -36,12 +31,26 @@ class ZombieClusters {
 
         while (!unvisitedNodes.isEmpty()) {
 
-            dfsRecursiveWithDepth(unvisitedNodes.first(), unvisitedNodes);
+            ZombieNode current = unvisitedNodes.first();
+
+            dfs(current, unvisitedNodes);
 
             connectedComponents++;
         }
 
         return connectedComponents;
+    }
+
+    private static void dfs(ZombieNode current, TreeSet<ZombieNode> unvisitedNodes) {
+        unvisitedNodes.remove(current);
+        int currentDepth = current.depth;
+
+        for (ZombieNode neighbor : current.neighbors) {
+            if (unvisitedNodes.contains(neighbor)) {
+                neighbor.depth = currentDepth + 1;
+                dfs(neighbor, unvisitedNodes);
+            }
+        }
     }
 
     private static HashMap<Integer, ZombieNode> populateGraph(String[] zombies) {
@@ -69,24 +78,23 @@ class ZombieClusters {
         return graph;
     }
 
-
-    private static class ZombieNode
-            extends GraphUtil.Node
-            implements Comparable<ZombieNode> {
+    private static class ZombieNode {
 
         private Integer value;
+        private HashSet<ZombieNode> neighbors;
+        public int depth;
 
         public ZombieNode(int id) {
+            neighbors = new HashSet<>();
             this.value = id;
-        }
-
-        @Override
-        public int compareTo(ZombieNode o) {
-            return this.getValue().compareTo(o.getValue());
         }
 
         public Integer getValue() {
             return value;
+        }
+
+        public void add(ZombieNode node) {
+            neighbors.add(node);
         }
     }
 
