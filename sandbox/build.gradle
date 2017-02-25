@@ -1,3 +1,4 @@
 dependencies {
     testCompile 'junit:junit'
+    testCompile 'org.projectlombok:lombok'
 }

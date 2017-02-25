@@ -1,9 +1,7 @@
 package com.juliakram.java10cycles.hackerrank;
 
-
 import java.io.ByteArrayInputStream;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * https://www.hackerrank.com/challenges/synchronous-shopping
@@ -12,23 +10,41 @@ class SynchronousShopping {
     public Output solution(Input input) {
 
         ShoppingCenter start = input.shoppingCenters.get(1);
-        ShoppingCenter end = input.shoppingCenters.get(input.shoppingCenters.size());
+//        ShoppingCenter end = input.shoppingCenters.get(input.shoppingCenters.size());
 
-        List<Integer> fishLeftToShop = new ArrayList<>(input.fishTypes);
+        HashMap<ShoppingCenter, Integer> distances = new HashMap<>();
+        HashMap<ShoppingCenter, ShoppingCenter> cat1Path = new HashMap<>();
 
-        //remove fish types which will be inevitably shopped anyway
-//        start.types.forEach(fishLeftToShop::remove);
-//        end.types.forEach(fishLeftToShop::remove);
-        Queue<ShoppingCenter> cat1 = new PriorityQueue<>();
-        Queue<ShoppingCenter> cat2 = new PriorityQueue<>();
+        KittyQueue queue = new KittyQueue();
 
-        while (!fishLeftToShop.isEmpty()) {
+        distances.put(start, 0);
 
+        input.shoppingCenters.values().forEach(sc -> {
+            if (!sc.equals(start)) {
+                distances.put(sc, Integer.MAX_VALUE);
+                cat1Path.put(sc, null);
+            }
+            queue.add(sc, distances.get(sc));
+        });
+
+
+        while (!queue.isEmpty()) {
+            ShoppingCenter current = queue.poll();
+            Integer currentDistanceFromStart = distances.get(current);
+
+            current.neighbors.forEach((neighbor, distance) -> {
+                int distanceFromStart = currentDistanceFromStart + distance;
+                if (distanceFromStart < distances.get(neighbor)) {
+                    distances.put(neighbor, distanceFromStart);
+                    cat1Path.put(neighbor, current);
+
+                    queue.changePriority(neighbor, distanceFromStart);
+                }
+            });
         }
 
         return null;
     }
-
 
     public static void main(String[] args) {
         SynchronousShopping algorithm = new SynchronousShopping();
@@ -132,6 +148,7 @@ class SynchronousShopping {
 
     private static class ShoppingCenter {
         private Integer id;
+        private Integer distance;
         private Set<Integer> types;
         private HashMap<ShoppingCenter, Integer> neighbors = new HashMap<>();
 
@@ -143,16 +160,6 @@ class SynchronousShopping {
         public void add(ShoppingCenter shoppingCenterB, int distance) {
             this.neighbors.put(shoppingCenterB, distance);
         }
-
-        @Override
-        public String toString() {
-            return "" + id + ": " + types + " " +
-                    "neighbors: " +
-                    neighbors.keySet()
-                            .stream()
-                            .map(k -> "" + k.id + ":" + neighbors.get(k))
-                            .collect(Collectors.toSet());
-        }
     }
 
     private class Output {
@@ -162,6 +169,24 @@ class SynchronousShopping {
         @Override
         public String toString() {
             return "" + value;
+        }
+    }
+
+    private class KittyQueue extends PriorityQueue<ShoppingCenter> {
+
+        public KittyQueue() {
+            super(Comparator.comparing(o -> o.distance));
+        }
+
+        public void add(ShoppingCenter sc, Integer distance) {
+            sc.distance = distance;
+            add(sc);
+        }
+
+        public void changePriority(ShoppingCenter neighbor, Integer distance) {
+            remove(neighbor);
+            neighbor.distance = distance;
+            add(neighbor);
         }
     }
 }
