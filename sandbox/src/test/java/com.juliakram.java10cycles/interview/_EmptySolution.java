@@ -7,31 +7,66 @@ import java.util.Scanner;
  * Created by jkramr on 2/6/17.
  */
 class _EmptySolution {
-    public int solution(int[] numbers) {
-        return 0;
+    public Output solution(Input input) {
+        return null;
     }
 
 
     public static void main(String[] args) {
         _EmptySolution algorithm = new _EmptySolution();
 
-        //reading from STDIN
-        Scanner inputScanner = new Scanner(System.in);
-        int a;
-        a = inputScanner.nextInt();
-        String b;
-        b = inputScanner.nextLine();
+        //read from STDIN
+        Input input = readFromSTDIN();
 
-        int[] integerArrayTestInput = {1, 1, 1, 1, 1};
+//        input = mockInput();
 
-        String[] stringArrayTestInput = new String[]{
+        System.out.println(algorithm.solution(input));
+    }
+
+    private static Input mockInput() {
+        String[] lines;
+
+        lines = new String[]{
                 "1",
                 "ftgyhujikl;",
                 "sadfafsdjhk",
                 "asdfukajhskdf",
         };
 
-        System.out.println(algorithm.solution(integerArrayTestInput));
+        return new Input(lines);
     }
 
+    private static Input readFromSTDIN() {
+        Scanner inputScanner = new Scanner(System.in);
+
+        String[] firstLine = inputScanner.nextLine().split(" ");
+
+        int inputCount = Integer.parseInt(firstLine[0]);
+
+        String[] lines = new String[inputCount];
+
+        for (int i = 0; i < inputCount; i++) {
+            lines[i] = inputScanner.nextLine();
+        }
+
+        return new Input(lines);
+    }
+
+    private static class Input {
+        private String[] lines;
+
+        public Input(String[] lines) {
+            this.lines = lines;
+        }
+    }
+
+    private class Output {
+
+        int value;
+
+        @Override
+        public String toString() {
+            return "" + value;
+        }
+    }
 }
