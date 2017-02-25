@@ -1,4 +1,4 @@
-package com.juliakram.java10cycles.interview;
+package com.juliakram.java10cycles.hackerrank;
 
 
 import java.io.ByteArrayInputStream;
