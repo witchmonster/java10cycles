@@ -83,7 +83,7 @@ public class GraphUtil {
     }
 
     public static void bfsWithDepth(TreeSet<? extends Node> unvisitedNodes) {
-        Queue<Node> queue = new PriorityQueue<>();
+        Queue<Node> queue = new ArrayDeque<>();
 
         int currentDepth = 0;
         Node clusterRoot = unvisitedNodes.first();
