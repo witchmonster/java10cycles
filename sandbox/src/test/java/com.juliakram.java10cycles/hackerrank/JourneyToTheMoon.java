@@ -4,7 +4,7 @@ package com.juliakram.java10cycles.hackerrank;
 import java.util.*;
 
 /**
- * Created by jkramr on 2/6/17.
+ * https://www.hackerrank.com/challenges/journey-to-the-moon
  */
 class JourneyToTheMoon {
     public static long solve(HashMap<Integer, Astronaut> astronauts, int allNodes) {

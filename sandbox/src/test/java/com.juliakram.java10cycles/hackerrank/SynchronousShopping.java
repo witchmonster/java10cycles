@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Created by jkramr on 2/6/17.
+ * https://www.hackerrank.com/challenges/synchronous-shopping
  */
 class SynchronousShopping {
     public Output solution(Input input) {
