@@ -112,7 +112,7 @@ public class GraphUtil {
         }
     }
 
-    public static class Node {
+    private static class Node {
 
         int depth;
 
