@@ -46,6 +46,41 @@ class SynchronousShopping {
         return null;
     }
 
+    private class KittyQueue extends PriorityQueue<ShoppingCenter> {
+
+        public KittyQueue() {
+            super(Comparator.comparing(o -> o.distance));
+        }
+
+        public void add(ShoppingCenter sc, Integer distance) {
+            sc.distance = distance;
+            add(sc);
+        }
+
+        public void changePriority(ShoppingCenter neighbor, Integer distance) {
+            remove(neighbor);
+            neighbor.distance = distance;
+            add(neighbor);
+        }
+    }
+
+    private static class ShoppingCenter {
+        private Integer id;
+        private Integer distance;
+        private Set<Integer> types;
+
+        private HashMap<ShoppingCenter, Integer> neighbors = new HashMap<>();
+
+        public ShoppingCenter(int id, Set<Integer> types) {
+            this.id = id;
+            this.types = types;
+        }
+        public void add(ShoppingCenter shoppingCenterB, int distance) {
+            this.neighbors.put(shoppingCenterB, distance);
+        }
+
+    }
+
     public static void main(String[] args) {
         SynchronousShopping algorithm = new SynchronousShopping();
 
@@ -127,12 +162,11 @@ class SynchronousShopping {
 
         return new ShoppingCenter(id, innerTypes);
     }
-
-
     private static class Input {
         private final int n;
         private final int m;
         private final int k;
+
         private final HashMap<Integer, ShoppingCenter> shoppingCenters;
         private List<Integer> fishTypes;
 
@@ -146,47 +180,13 @@ class SynchronousShopping {
         }
     }
 
-    private static class ShoppingCenter {
-        private Integer id;
-        private Integer distance;
-        private Set<Integer> types;
-        private HashMap<ShoppingCenter, Integer> neighbors = new HashMap<>();
-
-        public ShoppingCenter(int id, Set<Integer> types) {
-            this.id = id;
-            this.types = types;
-        }
-
-        public void add(ShoppingCenter shoppingCenterB, int distance) {
-            this.neighbors.put(shoppingCenterB, distance);
-        }
-    }
-
     private class Output {
 
         int value;
-
         @Override
         public String toString() {
             return "" + value;
         }
-    }
 
-    private class KittyQueue extends PriorityQueue<ShoppingCenter> {
-
-        public KittyQueue() {
-            super(Comparator.comparing(o -> o.distance));
-        }
-
-        public void add(ShoppingCenter sc, Integer distance) {
-            sc.distance = distance;
-            add(sc);
-        }
-
-        public void changePriority(ShoppingCenter neighbor, Integer distance) {
-            remove(neighbor);
-            neighbor.distance = distance;
-            add(neighbor);
-        }
     }
 }
