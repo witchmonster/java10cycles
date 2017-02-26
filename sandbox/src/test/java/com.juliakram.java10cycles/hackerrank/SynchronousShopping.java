@@ -22,51 +22,122 @@ class SynchronousShopping {
         int m;
         int k;
 
-        HashMap<Integer, Shop> shoppingCenters;
+        HashMap<Integer, Shop> shops;
 
         private Shop start;
-        private Shop end;
+        private PriorityQueue<ShopVisit> queue;
 
-        private PriorityQueue<VirtualShop> queue;
+        //id -> basket -> timeSoFar
+        HashMap<Integer, HashMap<Integer, Integer>> bestTime;
 
         Dijekstra() {
             readFromSTDIN();
 
-            start = shoppingCenters.get(1);
-            end = shoppingCenters.get(n);
+            start = shops.get(0);
+
+            bestTime = new HashMap<>();
+
+            for (int shopId = 0; shopId < n; shopId++) {
+                bestTime.put(shopId, new HashMap<>());
+
+                int allFish = (1 << k) - 1;
+
+                for (int fishCombinations = 0; fishCombinations <= allFish; fishCombinations++) {
+                    bestTime.get(shopId).put(fishCombinations, Integer.MAX_VALUE);
+                }
+            }
+
+            bestTime.get(0).put(start.fish, 0);
 
             queue = new PriorityQueue<>(
                     (o1, o2) ->
-                              o1.time > o2.time         ?  1
-                            : o1.time < o2.time         ? -1
-                            : o1.id.compareTo(o2.id)
+                            o1.timeSoFar > o2.timeSoFar ? 1
+                                    : o1.timeSoFar < o2.timeSoFar ? -1
+                                    : o1.shop.id.compareTo(o2.shop.id)
             );
+
+            queue.add(new ShopVisit(start, start.fish, 0));
         }
 
         void traverse() {
 
             while (!queue.isEmpty()) {
-                VirtualShop current = queue.poll();
+                ShopVisit current = queue.poll();
 
-                HashSet<Integer> fishBasket = current.basket;
+                Integer currentTimeSoFar = current.timeSoFar;
 
-//                    Integer currentTime = current.time;
+                int fishBasket = current.basket;
 
-//                    Set<Integer> currentBasket = current.fishBasketSoFar;
+                current.shop.neighbors.forEach((neighbor, timeToNeighbor) -> {
 
-//                    current.neighbors.forEach((neighbor, distance) -> {
-//                        int neighborTime = currentTime + distance;
-//                        if (neighborTime < neighbor.time) {
-//                            neighbor.fishBasketSoFar.addAll(currentBasket);
-//
-//                            queue.change(neighbor, neighborTime);
-//                        }
-//                    });
+                    int neighborTimeSoFar = currentTimeSoFar + timeToNeighbor;
+
+                    int neighborBasket = neighbor.fish | fishBasket;
+
+                    if (neighborTimeSoFar < bestTime.get(neighbor.id).get(neighborBasket)) {
+                        bestTime.get(neighbor.id).put(neighborBasket, neighborTimeSoFar);
+
+                        ShopVisit neighborVisit = new ShopVisit(neighbor, neighborBasket, neighborTimeSoFar);
+
+                        queue.add(neighborVisit);
+                    }
+                });
             }
 
-            int ans = Integer.MAX_VALUE;
+            int result = Integer.MAX_VALUE;
 
-            System.out.println(ans);
+            HashMap<Integer, Integer> bestTimesForNthShop = bestTime.get(n - 1);
+
+            int allFish = (1 << k) - 1;
+
+            for (int firstCatBasket = 0; firstCatBasket <= allFish; firstCatBasket++) {
+                for (int secondCatBasket = 0; secondCatBasket <= allFish; secondCatBasket++) {
+
+                    int sumOfFishInBaskets = firstCatBasket | secondCatBasket;
+
+                    if (sumOfFishInBaskets == allFish) {
+                        result = Math.min(result, Math.max(bestTimesForNthShop.get(firstCatBasket), bestTimesForNthShop.get(secondCatBasket)));
+                    }
+                }
+            }
+
+            System.out.println(result);
+        }
+
+        private static class ShopVisit {
+
+            Shop shop;
+
+            int basket;
+            int timeSoFar;
+
+            ShopVisit(Shop shop, int basket, int timeSoFar) {
+                this.shop = shop;
+                this.basket = basket;
+                this.timeSoFar = timeSoFar;
+            }
+        }
+
+        private static class Shop {
+            final Integer id;
+
+            final int fish;
+
+            private HashMap<Shop, Integer> neighbors = new HashMap<>();
+
+            Shop(int id, int fish) {
+                this.id = id;
+                this.fish = fish;
+            }
+
+            void add(Shop shopB, int distance) {
+                this.neighbors.put(shopB, distance);
+            }
+
+            @Override
+            public String toString() {
+                return "" + id;
+            }
         }
 
         private void readFromSTDIN() {
@@ -78,23 +149,20 @@ class SynchronousShopping {
             m = Integer.parseInt(firstLine[0]);
             k = Integer.parseInt(firstLine[0]);
 
-            shoppingCenters = new HashMap<>();
+            shops = new HashMap<>();
 
             for (int i = 0; i < n; i++) {
-                shoppingCenters.put(i + 1, parseShoppingCenter(
-                        i + 1,
-                        inputScanner.nextLine().split(" ")
-                ));
+                shops.put(i, parseShoppingCenter(i, inputScanner.nextLine().split(" ")));
             }
 
             for (int i = 0; i < m; i++) {
-                parseRoad(shoppingCenters, inputScanner.nextLine().split(" "));
+                parseRoad(shops, inputScanner.nextLine().split(" "));
             }
         }
 
         private static void parseRoad(HashMap<Integer, Shop> shoppingCenters, String[] roadData) {
-            int a = Integer.parseInt(roadData[0]);
-            int b = Integer.parseInt(roadData[1]);
+            int a = Integer.parseInt(roadData[0]) - 1;
+            int b = Integer.parseInt(roadData[1]) - 1;
             int distance = Integer.parseInt(roadData[2]);
 
             Shop shopA = shoppingCenters.get(a);
@@ -105,49 +173,16 @@ class SynchronousShopping {
         }
 
         private static Shop parseShoppingCenter(int id, String[] shoppingCenterData) {
-            int n = Integer.parseInt(shoppingCenterData[0]);
+            int fishTypesCount = Integer.parseInt(shoppingCenterData[0]);
 
-            Set<Integer> innerTypes = new HashSet<>();
+            int innerTypes = 0;
 
-            for (int i = 1; i < n + 1; i++) {
-                int fish = Integer.parseInt(shoppingCenterData[i]);
-                innerTypes.add(fish);
+            for (int i = 1; i < fishTypesCount + 1; i++) {
+                int fishType = Integer.parseInt(shoppingCenterData[i]) - 1;
+                innerTypes |= 1 << fishType;
             }
 
             return new Shop(id, innerTypes);
-        }
-    }
-
-    private static class VirtualShop extends Shop {
-
-        public int time;
-
-        public HashSet<Integer> basket;
-
-        VirtualShop(int id, Set<Integer> fishToSell) {
-            super(id, fishToSell);
-        }
-    }
-
-    private static class Shop {
-        protected final Integer id;
-
-        private final Set<Integer> fishToSell;
-
-        private HashMap<Shop, Integer> neighbors = new HashMap<>();
-
-        Shop(int id, Set<Integer> fishToSell) {
-            this.id = id;
-            this.fishToSell = fishToSell;
-        }
-
-        void add(Shop shopB, int distance) {
-            this.neighbors.put(shopB, distance);
-        }
-
-        @Override
-        public String toString() {
-            return "" + id;
         }
     }
 

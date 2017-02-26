@@ -116,6 +116,7 @@ public class KittyShopping {
                 Integer[] current = q.poll();
 
                 int currentTime = current[0];
+
                 int currentId = current[1] >> k;
 
                 int fishBasket = current[1] & (1 << k) - 1;
