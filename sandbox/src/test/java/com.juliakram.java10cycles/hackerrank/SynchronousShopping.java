@@ -16,30 +16,35 @@ class SynchronousShopping {
 
         Dijekstra dijekstra = new Dijekstra(input);
 
-        dijekstra.traverse();
+        Output output = dijekstra.traverse();
 
-        System.out.println((Output) null);
+        System.out.println(output.shortestDistance);
     }
 
     private static class Dijekstra {
 
+        private Set<Integer> allFishTypes;
         private ShoppingCenter start;
-        private HashMap<ShoppingCenter, ShoppingCenter> breadcrubms;
+        private ShoppingCenter end;
+        private HashSet<Integer> shoppedFish;
 
         private KittyQueue queue;
+        private int shortestDistance = 0;
 
-        public Dijekstra(Input input) {
+        Dijekstra(Input input) {
             start = input.shoppingCenters.get(1);
+            end = input.shoppingCenters.get(input.n);
+
+            this.allFishTypes = input.fishTypes;
 
             start.distance = 0;
 
-            breadcrubms = new HashMap<>();
+            shoppedFish = new HashSet<>();
 
             queue = new KittyQueue();
 
             input.shoppingCenters.values().forEach(sc -> {
                 if (!sc.equals(start)) {
-                    breadcrubms.put(sc, null);
                     sc.distance = Integer.MAX_VALUE;
                 }
 
@@ -47,17 +52,42 @@ class SynchronousShopping {
             });
         }
 
-        public void traverse() {
+        Output traverse() {
+
+            while (!queue.isEmpty() || !allFishTypes.containsAll(shoppedFish)) {
+                ShoppingCenter current = queue.poll();
+                Integer currentDistanceFromStart = current.distance;
+                shoppedFish.addAll(current.fishTypes);
+
+                if (queue.isEmpty() && !current.equals(end)) {
+                    queue.add(current);
+                    traverseToMeetingPoint();
+                } else {
+                    current.neighbors.forEach((neighbor, distance) -> {
+                        int distanceFromStart = currentDistanceFromStart + distance;
+                        if (distanceFromStart < neighbor.distance && !shoppedFish.containsAll(neighbor.fishTypes)) {
+                            queue.changePriority(neighbor, distanceFromStart);
+
+                            shortestDistance = distanceFromStart;
+                        }
+                    });
+                }
+            }
+
+            return new Output(shortestDistance);
+        }
+
+        private void traverseToMeetingPoint() {
             while (!queue.isEmpty()) {
                 ShoppingCenter current = queue.poll();
                 Integer currentDistanceFromStart = current.distance;
 
                 current.neighbors.forEach((neighbor, distance) -> {
-                    int distanceFromStart = currentDistanceFromStart + distance;
-                    if (distanceFromStart < neighbor.distance) {
-                        breadcrubms.put(neighbor, current);
+                    int neighborDistanceFromStart = currentDistanceFromStart + distance;
+                    if (neighborDistanceFromStart < neighbor.distance) {
+                        queue.add(neighbor);
 
-                        queue.changePriority(neighbor, distanceFromStart);
+                        shortestDistance = neighborDistanceFromStart;
                     }
                 });
             }
@@ -67,34 +97,39 @@ class SynchronousShopping {
 
     private static class KittyQueue extends PriorityQueue<ShoppingCenter> {
 
-        public KittyQueue() {
+        KittyQueue() {
             super(Comparator.comparing(o -> o.distance));
         }
 
-        public void changePriority(ShoppingCenter neighbor, Integer distance) {
+        void changePriority(ShoppingCenter neighbor, Integer distance) {
             remove(neighbor);
             neighbor.distance = distance;
             add(neighbor);
         }
 
     }
+
     private static class ShoppingCenter {
-        private Integer id;
+        private final Integer id;
         private Integer distance;
 
-        private Set<Integer> types;
+        private final Set<Integer> fishTypes;
 
         private HashMap<ShoppingCenter, Integer> neighbors = new HashMap<>();
 
-        public ShoppingCenter(int id, Set<Integer> types) {
+        ShoppingCenter(int id, Set<Integer> fishTypes) {
             this.id = id;
-            this.types = types;
+            this.fishTypes = fishTypes;
         }
 
-        public void add(ShoppingCenter shoppingCenterB, int distance) {
+        void add(ShoppingCenter shoppingCenterB, int distance) {
             this.neighbors.put(shoppingCenterB, distance);
         }
 
+        @Override
+        public String toString() {
+            return "" + id;
+        }
     }
 
     private static void mockInput() {
@@ -125,7 +160,7 @@ class SynchronousShopping {
         int k = Integer.parseInt(firstLine[0]);
 
         HashMap<Integer, ShoppingCenter> shoppingCenters = new HashMap<>();
-        List<Integer> types = new ArrayList<>();
+        HashSet<Integer> types = new HashSet<>();
 
         for (int i = 0; i < n; i++) {
             shoppingCenters.put(i + 1, parseShoppingCenter(
@@ -154,7 +189,7 @@ class SynchronousShopping {
         shoppingCenterB.add(shoppingCenterA, distance);
     }
 
-    private static ShoppingCenter parseShoppingCenter(int id, String[] shoppingCenterData, List<Integer> allTypes) {
+    private static ShoppingCenter parseShoppingCenter(int id, String[] shoppingCenterData, HashSet<Integer> allTypes) {
         int n = Integer.parseInt(shoppingCenterData[0]);
 
         Set<Integer> innerTypes = new HashSet<>();
@@ -169,14 +204,14 @@ class SynchronousShopping {
     }
 
     private static class Input {
-        private final int n;
-        private final int m;
-        private final int k;
+        final int n;
+        final int m;
+        final int k;
 
-        private final HashMap<Integer, ShoppingCenter> shoppingCenters;
-        private List<Integer> fishTypes;
+        final HashMap<Integer, ShoppingCenter> shoppingCenters;
+        private final Set<Integer> fishTypes;
 
-        public Input(int n, int m, int k, HashMap<Integer, ShoppingCenter> shoppingCenters, List<Integer> fishTypes) {
+        Input(int n, int m, int k, HashMap<Integer, ShoppingCenter> shoppingCenters, Set<Integer> fishTypes) {
 
             this.n = n;
             this.m = m;
@@ -186,13 +221,12 @@ class SynchronousShopping {
         }
     }
 
-    private class Output {
+    private static class Output {
 
-        int value;
-        @Override
-        public String toString() {
-            return "" + value;
+        private int shortestDistance;
+
+        Output(int shortestDistance) {
+            this.shortestDistance = shortestDistance;
         }
-
     }
 }
