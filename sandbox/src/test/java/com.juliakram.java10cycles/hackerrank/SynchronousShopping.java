@@ -2,6 +2,7 @@ package com.juliakram.java10cycles.hackerrank;
 
 import java.io.ByteArrayInputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * https://www.hackerrank.com/challenges/synchronous-shopping
@@ -11,12 +12,12 @@ class SynchronousShopping {
     public static void main(String[] args) {
         mockInput();
 
-        Dijekstra dijekstra = new Dijekstra();
+        KittyDijekstra dijekstra = new KittyDijekstra();
 
         dijekstra.traverse();
     }
 
-    private static class Dijekstra {
+    private static class KittyDijekstra {
 
         int n;
         int m;
@@ -29,8 +30,9 @@ class SynchronousShopping {
 
         //id -> basket -> timeSoFar
         HashMap<Integer, HashMap<Integer, Integer>> bestTime;
+        private HashMap<Integer, List<ShopVisit>> visited = new HashMap<>();
 
-        Dijekstra() {
+        KittyDijekstra() {
             readFromSTDIN();
 
             start = shops.get(0);
@@ -40,6 +42,7 @@ class SynchronousShopping {
             for (int shopId = 0; shopId < n; shopId++) {
                 bestTime.put(shopId, new HashMap<>());
 
+                //0b11111, k = 5
                 int allFish = (1 << k) - 1;
 
                 for (int fishCombinations = 0; fishCombinations <= allFish; fishCombinations++) {
@@ -56,13 +59,18 @@ class SynchronousShopping {
                                     : o1.shop.id.compareTo(o2.shop.id)
             );
 
-            queue.add(new ShopVisit(start, start.fish, 0));
+            queue.add(new ShopVisit(start, start.fish, 0, 0));
         }
 
         void traverse() {
 
             while (!queue.isEmpty()) {
                 ShopVisit current = queue.poll();
+
+                int currentDepth = current.depth;
+
+                visited.putIfAbsent(currentDepth, new ArrayList<>());
+                visited.get(currentDepth).add(current);
 
                 Integer currentTimeSoFar = current.timeSoFar;
 
@@ -77,7 +85,7 @@ class SynchronousShopping {
                     if (neighborTimeSoFar < bestTime.get(neighbor.id).get(neighborBasket)) {
                         bestTime.get(neighbor.id).put(neighborBasket, neighborTimeSoFar);
 
-                        ShopVisit neighborVisit = new ShopVisit(neighbor, neighborBasket, neighborTimeSoFar);
+                        ShopVisit neighborVisit = new ShopVisit(neighbor, neighborBasket, neighborTimeSoFar, currentDepth + 1);
 
                         queue.add(neighborVisit);
                     }
@@ -88,6 +96,7 @@ class SynchronousShopping {
 
             HashMap<Integer, Integer> bestTimesForNthShop = bestTime.get(n - 1);
 
+            //0b11111, k = 5
             int allFish = (1 << k) - 1;
 
             for (int firstCatBasket = 0; firstCatBasket <= allFish; firstCatBasket++) {
@@ -96,7 +105,10 @@ class SynchronousShopping {
                     int sumOfFishInBaskets = firstCatBasket | secondCatBasket;
 
                     if (sumOfFishInBaskets == allFish) {
-                        result = Math.min(result, Math.max(bestTimesForNthShop.get(firstCatBasket), bestTimesForNthShop.get(secondCatBasket)));
+                        Integer firstCat = bestTimesForNthShop.get(firstCatBasket);
+                        Integer secondCat = bestTimesForNthShop.get(secondCatBasket);
+
+                        result = Math.min(result, Math.max(firstCat, secondCat));
                     }
                 }
             }
@@ -108,13 +120,24 @@ class SynchronousShopping {
 
             Shop shop;
 
+            int depth;
             int basket;
             int timeSoFar;
 
-            ShopVisit(Shop shop, int basket, int timeSoFar) {
+            ShopVisit(Shop shop, int basket, int timeSoFar, int depth) {
                 this.shop = shop;
                 this.basket = basket;
                 this.timeSoFar = timeSoFar;
+                this.depth = depth;
+            }
+
+            @Override
+            public String toString() {
+                return "ShopVisit{" +
+                        "shop=" + shop +
+                        ", basket=" + basket +
+                        ", timeSoFar=" + timeSoFar +
+                        '}';
             }
         }
 
@@ -136,7 +159,7 @@ class SynchronousShopping {
 
             @Override
             public String toString() {
-                return "" + id;
+                return "" + id + ": neighbors: " + neighbors.keySet().stream().map(shop -> shop.id).collect(Collectors.toSet());
             }
         }
 
@@ -146,8 +169,8 @@ class SynchronousShopping {
             String[] firstLine = inputScanner.nextLine().split(" ");
 
             n = Integer.parseInt(firstLine[0]);
-            m = Integer.parseInt(firstLine[0]);
-            k = Integer.parseInt(firstLine[0]);
+            m = Integer.parseInt(firstLine[1]);
+            k = Integer.parseInt(firstLine[2]);
 
             shops = new HashMap<>();
 
@@ -187,21 +210,57 @@ class SynchronousShopping {
     }
 
     private static void mockInput() {
-        String lines =
-                "5 5 5" + "\n" +
-                        "1 1" + "\n" +
-                        "1 2" + "\n" +
-                        "1 3" + "\n" +
-                        "1 4" + "\n" +
-                        "1 5" + "\n" +
-                        "1 2 10" + "\n" +
-                        "1 3 10" + "\n" +
-                        "2 4 10" + "\n" +
-                        "3 5 10" + "\n" +
-                        "4 5 10" + "\n";
+//        String lines = testCase0();
+        String lines = testCase1();
 
         ByteArrayInputStream in = new ByteArrayInputStream(lines.getBytes());
         System.setIn(in);
+    }
+
+    private static String testCase0() {
+        return "5 5 5" + "\n" +
+                "1 1" + "\n" +
+                "1 2" + "\n" +
+                "1 3" + "\n" +
+                "1 4" + "\n" +
+                "1 5" + "\n" +
+                "1 2 10" + "\n" +
+                "1 3 10" + "\n" +
+                "2 4 10" + "\n" +
+                "3 5 10" + "\n" +
+                "4 5 10" + "\n";
+    }
+
+    private static String testCase1() {
+        return "8 20 2" + "\n" +
+                "0" + "\n" +
+                "1 1" + "\n" +
+                "0" + "\n" +
+                "1 1" + "\n" +
+                "0" + "\n" +
+                "0" + "\n" +
+                "0" + "\n" +
+                "2 1 2" + "\n" +
+                "3 2 762" + "\n" +
+                "7 4 727" + "\n" +
+                "8 7 322" + "\n" +
+                "8 1 207" + "\n" +
+                "1 5 687" + "\n" +
+                "2 6 556" + "\n" +
+                "1 6 103" + "\n" +
+                "6 8 237" + "\n" +
+                "3 6 777" + "\n" +
+                "5 6 698" + "\n" +
+                "3 7 584" + "\n" +
+                "6 4 25" + "\n" +
+                "2 5 734" + "\n" +
+                "3 5 667" + "\n" +
+                "7 2 208" + "\n" +
+                "7 5 669" + "\n" +
+                "4 8 775" + "\n" +
+                "8 3 229" + "\n" +
+                "1 2 462" + "\n" +
+                "4 2 562" + "\n";
     }
 
 }

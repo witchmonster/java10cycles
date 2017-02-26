@@ -13,41 +13,25 @@ public class KittyShopping {
 
         dijekstra.init();
 
-        dijekstra.traverse();
-    }
-
-    private static void mockInput() {
-        String lines =
-                "5 5 5" + "\n" +
-                        "1 1" + "\n" +
-                        "1 2" + "\n" +
-                        "1 3" + "\n" +
-                        "1 4" + "\n" +
-                        "1 5" + "\n" +
-                        "1 2 10" + "\n" +
-                        "1 3 10" + "\n" +
-                        "2 4 10" + "\n" +
-                        "3 5 10" + "\n" +
-                        "4 5 10" + "\n";
-
-        ByteArrayInputStream in = new ByteArrayInputStream(lines.getBytes());
-        System.setIn(in);
+        dijekstra.solve();
     }
 
     private static class Dijekstra {
+
         private int n;
         private int m;
         private int k;
-
         private int[] availableFish;
+
         private int[] neighborCount;
-
         private int[][] path;
-        private int[][] time;
 
+        private int[][] time;
         private int[] bestTime;
 
         PriorityQueue<Integer[]> q;
+
+        private HashMap<Integer, ArrayList<Integer[]>> visited = new HashMap<>();
 
         public Dijekstra() {
             Scanner in = new Scanner(System.in);
@@ -108,12 +92,17 @@ public class KittyShopping {
                             : a[0] < b[0] ? -1
                             : a[1] - b[1]);
 
-            q.add(new Integer[]{0, availableFish[0]});
+            q.add(new Integer[]{0, availableFish[0], 0});
         }
 
-        public void traverse() {
+        public void solve() {
             while (!q.isEmpty()) {
                 Integer[] current = q.poll();
+
+                Integer currentDepth = current[2];
+
+                visited.putIfAbsent(currentDepth, new ArrayList<>());
+                visited.get(currentDepth).add(current);
 
                 int currentTime = current[0];
 
@@ -135,7 +124,7 @@ public class KittyShopping {
                     if (bestTime[neighbor] > nextCurrentTime) {
                         bestTime[neighbor] = nextCurrentTime;
 
-                        q.add(new Integer[]{bestTime[neighbor], neighbor});
+                        q.add(new Integer[]{bestTime[neighbor], neighbor, currentDepth + 1});
                     }
                 }
             }
@@ -148,12 +137,70 @@ public class KittyShopping {
                     int nthShopWithAllFish = (n << k) - 1;
 
                     if ((i | j) == nthShopWithAllFish) {
-                        ans = Math.min(ans, Math.max(bestTime[i], bestTime[j]));
+                        int firstCat = bestTime[i];
+                        int secondCat = bestTime[j];
+
+                        ans = Math.min(ans, Math.max(firstCat, secondCat));
                     }
                 }
             }
 
             System.out.println(ans);
         }
+
+    }
+
+    private static void mockInput() {
+//        String lines = testCase0();
+        String lines = testCase1();
+
+        ByteArrayInputStream in = new ByteArrayInputStream(lines.getBytes());
+        System.setIn(in);
+    }
+
+    private static String testCase0() {
+        return "5 5 5" + "\n" +
+                "1 1" + "\n" +
+                "1 2" + "\n" +
+                "1 3" + "\n" +
+                "1 4" + "\n" +
+                "1 5" + "\n" +
+                "1 2 10" + "\n" +
+                "1 3 10" + "\n" +
+                "2 4 10" + "\n" +
+                "3 5 10" + "\n" +
+                "4 5 10" + "\n";
+    }
+
+    private static String testCase1() {
+        return "8 20 2" + "\n" +
+                "0" + "\n" +
+                "1 1" + "\n" +
+                "0" + "\n" +
+                "1 1" + "\n" +
+                "0" + "\n" +
+                "0" + "\n" +
+                "0" + "\n" +
+                "2 1 2" + "\n" +
+                "3 2 762" + "\n" +
+                "7 4 727" + "\n" +
+                "8 7 322" + "\n" +
+                "8 1 207" + "\n" +
+                "1 5 687" + "\n" +
+                "2 6 556" + "\n" +
+                "1 6 103" + "\n" +
+                "6 8 237" + "\n" +
+                "3 6 777" + "\n" +
+                "5 6 698" + "\n" +
+                "3 7 584" + "\n" +
+                "6 4 25" + "\n" +
+                "2 5 734" + "\n" +
+                "3 5 667" + "\n" +
+                "7 2 208" + "\n" +
+                "7 5 669" + "\n" +
+                "4 8 775" + "\n" +
+                "8 3 229" + "\n" +
+                "1 2 462" + "\n" +
+                "4 2 562" + "\n";
     }
 }
