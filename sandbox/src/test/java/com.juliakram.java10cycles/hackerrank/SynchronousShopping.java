@@ -26,9 +26,10 @@ class SynchronousShopping {
         private Set<Integer> allFishTypes;
         private ShoppingCenter start;
         private ShoppingCenter end;
-        private HashSet<Integer> shoppedFish;
 
         private KittyQueue queue;
+        private HashSet<ShoppingCenter> visited;
+
         private int shortestDistance = 0;
 
         Dijekstra(Input input) {
@@ -38,8 +39,7 @@ class SynchronousShopping {
             this.allFishTypes = input.fishTypes;
 
             start.distance = 0;
-
-            shoppedFish = new HashSet<>();
+            start.fishBasketSoFar = start.fishToSell;
 
             queue = new KittyQueue();
 
@@ -54,21 +54,24 @@ class SynchronousShopping {
 
         Output traverse() {
 
-            while (!queue.isEmpty() || !allFishTypes.containsAll(shoppedFish)) {
+            while (!queue.isEmpty()) {
                 ShoppingCenter current = queue.poll();
+                visited.add(current);
                 Integer currentDistanceFromStart = current.distance;
-                shoppedFish.addAll(current.fishTypes);
 
-                if (queue.isEmpty() && !current.equals(end)) {
+                shortestDistance = currentDistanceFromStart;
+                Set<Integer> fishBasketSoFar = current.fishBasketSoFar;
+
+                if (allFishTypes.containsAll(fishBasketSoFar) && !current.equals(end)) {
                     queue.add(current);
                     traverseToMeetingPoint();
                 } else {
                     current.neighbors.forEach((neighbor, distance) -> {
-                        int distanceFromStart = currentDistanceFromStart + distance;
-                        if (distanceFromStart < neighbor.distance && !shoppedFish.containsAll(neighbor.fishTypes)) {
-                            queue.changePriority(neighbor, distanceFromStart);
+                        int neighborDistanceFromStart = currentDistanceFromStart + distance;
+                        if (neighborDistanceFromStart < neighbor.distance) {
+                            neighbor.fishBasketSoFar.addAll(neighbor.fishToSell);
 
-                            shortestDistance = distanceFromStart;
+                            queue.change(neighbor, neighborDistanceFromStart);
                         }
                     });
                 }
@@ -80,14 +83,16 @@ class SynchronousShopping {
         private void traverseToMeetingPoint() {
             while (!queue.isEmpty()) {
                 ShoppingCenter current = queue.poll();
+                visited.add(current);
+
                 Integer currentDistanceFromStart = current.distance;
+
+                shortestDistance = currentDistanceFromStart;
 
                 current.neighbors.forEach((neighbor, distance) -> {
                     int neighborDistanceFromStart = currentDistanceFromStart + distance;
                     if (neighborDistanceFromStart < neighbor.distance) {
                         queue.add(neighbor);
-
-                        shortestDistance = neighborDistanceFromStart;
                     }
                 });
             }
@@ -101,7 +106,7 @@ class SynchronousShopping {
             super(Comparator.comparing(o -> o.distance));
         }
 
-        void changePriority(ShoppingCenter neighbor, Integer distance) {
+        void change(ShoppingCenter neighbor, Integer distance) {
             remove(neighbor);
             neighbor.distance = distance;
             add(neighbor);
@@ -112,14 +117,15 @@ class SynchronousShopping {
     private static class ShoppingCenter {
         private final Integer id;
         private Integer distance;
+        private Set<Integer> fishBasketSoFar;
 
-        private final Set<Integer> fishTypes;
+        private final Set<Integer> fishToSell;
 
         private HashMap<ShoppingCenter, Integer> neighbors = new HashMap<>();
 
-        ShoppingCenter(int id, Set<Integer> fishTypes) {
+        ShoppingCenter(int id, Set<Integer> fishToSell) {
             this.id = id;
-            this.fishTypes = fishTypes;
+            this.fishToSell = fishToSell;
         }
 
         void add(ShoppingCenter shoppingCenterB, int distance) {
