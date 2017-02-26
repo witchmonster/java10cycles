@@ -7,6 +7,7 @@ import java.util.*;
  * https://www.hackerrank.com/challenges/synchronous-shopping
  */
 class SynchronousShopping {
+
     public Output solution(Input input) {
 
         ShoppingCenter start = input.shoppingCenters.get(1);
@@ -162,6 +163,7 @@ class SynchronousShopping {
 
         return new ShoppingCenter(id, innerTypes);
     }
+
     private static class Input {
         private final int n;
         private final int m;
