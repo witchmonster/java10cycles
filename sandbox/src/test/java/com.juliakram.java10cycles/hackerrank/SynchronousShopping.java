@@ -8,54 +8,67 @@ import java.util.*;
  */
 class SynchronousShopping {
 
-    public Output solution(Input input) {
+    public static void main(String[] args) {
+        mockInput();
 
-        ShoppingCenter start = input.shoppingCenters.get(1);
-//        ShoppingCenter end = input.shoppingCenters.get(input.shoppingCenters.size());
+        //read from STDIN
+        Input input = readFromSTDIN();
 
-        HashMap<ShoppingCenter, Integer> distances = new HashMap<>();
-        HashMap<ShoppingCenter, ShoppingCenter> cat1Path = new HashMap<>();
+        Dijekstra dijekstra = new Dijekstra(input);
 
-        KittyQueue queue = new KittyQueue();
+        dijekstra.traverse();
 
-        distances.put(start, 0);
+        System.out.println((Output) null);
+    }
 
-        input.shoppingCenters.values().forEach(sc -> {
-            if (!sc.equals(start)) {
-                distances.put(sc, Integer.MAX_VALUE);
-                cat1Path.put(sc, null);
-            }
-            queue.add(sc, distances.get(sc));
-        });
+    private static class Dijekstra {
 
+        private ShoppingCenter start;
+        private HashMap<ShoppingCenter, ShoppingCenter> breadcrubms;
 
-        while (!queue.isEmpty()) {
-            ShoppingCenter current = queue.poll();
-            Integer currentDistanceFromStart = distances.get(current);
+        private KittyQueue queue;
 
-            current.neighbors.forEach((neighbor, distance) -> {
-                int distanceFromStart = currentDistanceFromStart + distance;
-                if (distanceFromStart < distances.get(neighbor)) {
-                    distances.put(neighbor, distanceFromStart);
-                    cat1Path.put(neighbor, current);
+        public Dijekstra(Input input) {
+            start = input.shoppingCenters.get(1);
 
-                    queue.changePriority(neighbor, distanceFromStart);
+            start.distance = 0;
+
+            breadcrubms = new HashMap<>();
+
+            queue = new KittyQueue();
+
+            input.shoppingCenters.values().forEach(sc -> {
+                if (!sc.equals(start)) {
+                    breadcrubms.put(sc, null);
+                    sc.distance = Integer.MAX_VALUE;
                 }
+
+                queue.add(sc);
             });
         }
 
-        return null;
+        public void traverse() {
+            while (!queue.isEmpty()) {
+                ShoppingCenter current = queue.poll();
+                Integer currentDistanceFromStart = current.distance;
+
+                current.neighbors.forEach((neighbor, distance) -> {
+                    int distanceFromStart = currentDistanceFromStart + distance;
+                    if (distanceFromStart < neighbor.distance) {
+                        breadcrubms.put(neighbor, current);
+
+                        queue.changePriority(neighbor, distanceFromStart);
+                    }
+                });
+            }
+        }
+
     }
 
-    private class KittyQueue extends PriorityQueue<ShoppingCenter> {
+    private static class KittyQueue extends PriorityQueue<ShoppingCenter> {
 
         public KittyQueue() {
             super(Comparator.comparing(o -> o.distance));
-        }
-
-        public void add(ShoppingCenter sc, Integer distance) {
-            sc.distance = distance;
-            add(sc);
         }
 
         public void changePriority(ShoppingCenter neighbor, Integer distance) {
@@ -63,11 +76,12 @@ class SynchronousShopping {
             neighbor.distance = distance;
             add(neighbor);
         }
-    }
 
+    }
     private static class ShoppingCenter {
         private Integer id;
         private Integer distance;
+
         private Set<Integer> types;
 
         private HashMap<ShoppingCenter, Integer> neighbors = new HashMap<>();
@@ -76,21 +90,11 @@ class SynchronousShopping {
             this.id = id;
             this.types = types;
         }
+
         public void add(ShoppingCenter shoppingCenterB, int distance) {
             this.neighbors.put(shoppingCenterB, distance);
         }
 
-    }
-
-    public static void main(String[] args) {
-        SynchronousShopping algorithm = new SynchronousShopping();
-
-        mockInput();
-
-        //read from STDIN
-        Input input = readFromSTDIN();
-
-        System.out.println(algorithm.solution(input));
     }
 
     private static void mockInput() {
