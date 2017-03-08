@@ -1,8 +1,5 @@
 package com.juliakram.java10cycles.algorithms;
 
-/**
- * Created by jkramr on 3/5/17.
- */
 public class Search {
 
     public static class BinarySearch {
