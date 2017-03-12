@@ -2,7 +2,8 @@ package com.juliakram.core.algorithms.cake;
 
 import com.juliakram.core.TestableAlgorithm;
 import com.juliakram.core.algorithms.other.BigSqrt;
-
+import model.constants.BigO;
+import model.constants.Complexity;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.math.BigDecimal;
@@ -12,13 +13,11 @@ import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.constants.BigO;
-import model.constants.Complexity;
-
 /**
  * https://www.interviewcake.com/question/java/nth-fibonacci
  */
-public interface Fibonacci extends TestableAlgorithm<Integer> {
+public interface Fibonacci
+        extends TestableAlgorithm<Integer> {
 
   static void main(String[] args) {
     new BinetFormula().test();
@@ -41,13 +40,14 @@ public interface Fibonacci extends TestableAlgorithm<Integer> {
     }
   }
 
-  class BinetFormula implements Fibonacci {
+  class BinetFormula
+          implements Fibonacci {
 
     private BigSqrt newtonRaphson = new BigSqrt.NewtonRaphson();
 
     @Override
     public BigInteger fib(int i) {
-      BigDecimal sqrt5 =  newtonRaphson.bigSqrt(BigDecimal.valueOf(5), 150);
+      BigDecimal sqrt5 = newtonRaphson.bigSqrt(BigDecimal.valueOf(5), 150);
 
       BigDecimal phi = sqrt5
               .add(BigDecimal.ONE)
@@ -60,8 +60,8 @@ public interface Fibonacci extends TestableAlgorithm<Integer> {
       return phi
               .pow(i)
               .subtract(phi
-                      .subtract(BigDecimal.ONE)
-                      .pow(i))
+                                .subtract(BigDecimal.ONE)
+                                .pow(i))
               .divide(sqrt5, precision)
               .toBigInteger();
     }
@@ -72,7 +72,8 @@ public interface Fibonacci extends TestableAlgorithm<Integer> {
     }
   }
 
-  class Dynamic implements Fibonacci {
+  class Dynamic
+          implements Fibonacci {
 
     @Override
     public BigInteger fib(int i) {
@@ -85,9 +86,9 @@ public interface Fibonacci extends TestableAlgorithm<Integer> {
         return BigInteger.valueOf(i);
       }
 
-      BigInteger prev = BigInteger.ZERO;
+      BigInteger prev     = BigInteger.ZERO;
       BigInteger prevPrev = BigInteger.ONE;
-      BigInteger current = BigInteger.ZERO;
+      BigInteger current  = BigInteger.ZERO;
 
       for (int j = 0; j < i; j++) {
         current = prev.add(prevPrev);
@@ -104,7 +105,8 @@ public interface Fibonacci extends TestableAlgorithm<Integer> {
     }
   }
 
-  class Matrix implements Fibonacci {
+  class Matrix
+          implements Fibonacci {
 
     @Override
     public BigInteger fib(int i) {
@@ -117,7 +119,8 @@ public interface Fibonacci extends TestableAlgorithm<Integer> {
     }
   }
 
-  class RecursiveMemo implements Fibonacci {
+  class RecursiveMemo
+          implements Fibonacci {
 
     Map<BigInteger, BigInteger> memo = new HashMap<>();
 
@@ -150,7 +153,8 @@ public interface Fibonacci extends TestableAlgorithm<Integer> {
     }
   }
 
-  class Recursive implements Fibonacci {
+  class Recursive
+          implements Fibonacci {
 
     @Override
     public BigInteger fib(int i) {

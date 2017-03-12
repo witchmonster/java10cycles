@@ -6,8 +6,13 @@ package com.juliakram.core.algorithms.other.matrices;
 public class RotateMatrixInPlace {
 
   public static void main(String[] args) {
-    RotateMatrixInPlace rotor = new RotateMatrixInPlace();
-    int[][] matrix4 = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+    RotateMatrixInPlace rotor   = new RotateMatrixInPlace();
+    int[][]             matrix4 = {
+            {1, 2, 3, 4},
+            {5, 6, 7, 8},
+            {9, 10, 11, 12},
+            {13, 14, 15, 16}
+    };
     printMatrix(rotor.rotate(matrix4));
     int[][] matrix3 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
     printMatrix(rotor.rotate(matrix3));
@@ -24,7 +29,7 @@ public class RotateMatrixInPlace {
   }
 
   private int[][] rotate(int[][] matrix) {
-    int n = matrix.length;
+    int n      = matrix.length;
     int layers = n / 2;
     for (int l = 0; l < layers; l++) {
       for (int i = l; i < n - l - 1; i++) {

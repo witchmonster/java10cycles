@@ -1,20 +1,20 @@
 package com.juliakram.core.algorithms.cake;
 
 import com.juliakram.core.TestableAlgorithm;
+import model.constants.BigO;
+import model.constants.Complexity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import model.constants.BigO;
-import model.constants.Complexity;
 
 import static com.juliakram.core.algorithms.cake.IntervalUnion.Meeting.of;
 
 /**
  * https://www.interviewcake.com/question/java/merging-ranges
  */
-public interface IntervalUnion extends TestableAlgorithm<IntervalUnion.Meeting> {
+public interface IntervalUnion
+        extends TestableAlgorithm<IntervalUnion.Meeting> {
 
   static void main(String[] args) {
     new Linear().test();
@@ -23,15 +23,16 @@ public interface IntervalUnion extends TestableAlgorithm<IntervalUnion.Meeting> 
   List<Meeting> getUnion(List<Meeting> meetings);
 
   default void test() {
-    test(of(1,2), of(3,4), of(2,3), of(1,3));
-    test(of(1,2), of(9,10), of(2,4), of(1,3));
+    test(of(1, 2), of(3, 4), of(2, 3), of(1, 3));
+    test(of(1, 2), of(9, 10), of(2, 4), of(1, 3));
   }
 
   default void printResult(Meeting... meetings) {
     System.out.println(getUnion(Arrays.asList(meetings)));
   }
 
-  class Linear implements IntervalUnion {
+  class Linear
+          implements IntervalUnion {
 
     @Override
     public Complexity complexity() {
@@ -78,6 +79,10 @@ public interface IntervalUnion extends TestableAlgorithm<IntervalUnion.Meeting> 
       this.endTime = endTime;
     }
 
+    public static Meeting of(int low, int high) {
+      return new Meeting(low, high);
+    }
+
     public String toString() {
       return String.format("(%d, %d)", startTime, endTime);
     }
@@ -88,10 +93,6 @@ public interface IntervalUnion extends TestableAlgorithm<IntervalUnion.Meeting> 
 
     public boolean isDisjoint(Meeting that) {
       return this.startTime > that.endTime || that.startTime > this.endTime;
-    }
-
-    public static Meeting of(int low, int high) {
-      return new Meeting(low, high);
     }
   }
 }

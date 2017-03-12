@@ -5,7 +5,8 @@ import java.util.Arrays;
 /**
  * Created by juliakram on 24/06/16.
  */
-public interface TestableAlgorithm<I> extends Algorithm {
+public interface TestableAlgorithm<I>
+        extends Algorithm {
 
   void test();
 

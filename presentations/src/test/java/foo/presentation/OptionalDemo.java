@@ -1,5 +1,7 @@
 package foo.presentation;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -9,19 +11,16 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
 /**
  * Created by juliakram on 15/06/16.
  */
 public class OptionalDemo {
 
-  public static final String PLAYER1_ID = "player1";
-  public static final String PLAYER2_ID = "player2";
-  public static final String PLAYER3_ID = "player2";
-  static Map<String, Player> players = new HashMap<>();
-  private final Lock lock = new ReentrantLock();
+  public static final String              PLAYER1_ID = "player1";
+  public static final String              PLAYER2_ID = "player2";
+  public static final String              PLAYER3_ID = "player2";
+  static              Map<String, Player> players    = new HashMap<>();
+  private final       Lock                lock       = new ReentrantLock();
   PlayerRepository repository = new PlayerRepository() {
 
     @Override
@@ -99,6 +98,6 @@ public class OptionalDemo {
   private static class Player {
     private String id;
     private String name;
-    private int score;
+    private int    score;
   }
 }

@@ -21,12 +21,12 @@ allprojects {
 
     dependencyManagement {
         dependencies {
-            dependency group: 'org.projectlombok',      name: 'lombok',         version: '1.16.6'
+            dependency group: 'org.projectlombok', name: 'lombok', version: '1.16.6'
 
 
-            dependency group: 'junit',                  name: 'junit',          version: '4.12'
-            dependency group: 'org.codehaus.groovy',    name: 'groovy-all',     version: '2.4.5'
-            dependency group: 'org.spockframework',     name: 'spock-core',     version: '1.0-groovy-2.4'
+            dependency group: 'junit', name: 'junit', version: '4.12'
+            dependency group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.5'
+            dependency group: 'org.spockframework', name: 'spock-core', version: '1.0-groovy-2.4'
         }
     }
 }

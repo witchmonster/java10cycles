@@ -1,18 +1,18 @@
 package com.juliakram.core.algorithms.other.arrays;
 
 import com.juliakram.core.TestableAlgorithm;
-
-import java.util.Arrays;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import model.constants.BigO;
 import model.constants.Complexity;
 
+import java.util.Arrays;
+
 /**
  * Created by juliakram on 14/08/16.
  */
-public interface LargestSumSub extends TestableAlgorithm<Integer[]> {
+public interface LargestSumSub
+        extends TestableAlgorithm<Integer[]> {
 
   static void main(String[] args) {
     new Linear().test();
@@ -34,13 +34,20 @@ public interface LargestSumSub extends TestableAlgorithm<Integer[]> {
     for (int i = 0; i < data.length; i++) {
       LargestSumSubArray lssa = getLSSA(data[i]);
       System.out.println("Largest sum: "
-              + lssa.getMaxSum()
-              + "\nSub array: "
-              + Arrays.toString(Arrays.copyOfRange(data, lssa.getStart(), lssa.getEnd())));
+                         +
+                         lssa.getMaxSum()
+                         +
+                         "\nSub array: "
+                         +
+                         Arrays.toString(Arrays.copyOfRange(data,
+                                                            lssa.getStart(),
+                                                            lssa.getEnd()
+                         )));
     }
   }
 
-  class Linear implements LargestSumSub {
+  class Linear
+          implements LargestSumSub {
 
     @Override
     public LargestSumSubArray getLSSA(Integer[] array) {
@@ -51,10 +58,10 @@ public interface LargestSumSub extends TestableAlgorithm<Integer[]> {
       }
 
       int globalMax = array[0];
-      int curMax = array[0];
-      int curStart = 0;
-      int start = 0;
-      int end = 0;
+      int curMax    = array[0];
+      int curStart  = 0;
+      int start     = 0;
+      int end       = 0;
 
       for (int i = 1; i < n; i++) {
         if (curMax < 0) {

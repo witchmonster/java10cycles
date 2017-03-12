@@ -15,9 +15,9 @@ public class MergeTwoSortedArrays {
   }
 
   private static String merge(int[] listm, int[] listn) {
-    int i = listm.length - 1;
-    int j = listn.length - 1;
-    int k = i + j + 1;
+    int   i          = listm.length - 1;
+    int   j          = listn.length - 1;
+    int   k          = i + j + 1;
     int[] resultList = new int[k + 1];
     while (k >= 0) {
       if (j < 0 || (i >= 0 && listm[i] > listn[j])) {

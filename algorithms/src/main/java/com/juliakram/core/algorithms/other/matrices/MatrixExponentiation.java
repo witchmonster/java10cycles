@@ -7,7 +7,8 @@ public interface MatrixExponentiation {
   Matrix pow(Matrix arg, int scalar);
 
   //time O(n^3), space O(nˆ2)
-  class Dynamic implements MatrixExponentiation {
+  class Dynamic
+          implements MatrixExponentiation {
 
     MatrixMultiply matrixMultiplyOps;
 

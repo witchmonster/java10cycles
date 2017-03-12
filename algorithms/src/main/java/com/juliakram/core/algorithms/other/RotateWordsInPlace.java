@@ -1,15 +1,16 @@
 package com.juliakram.core.algorithms.other;
 
 import com.juliakram.core.Algorithm;
-
 import model.constants.BigO;
 import model.constants.Complexity;
 
-public interface RotateWordsInPlace extends Algorithm {
+public interface RotateWordsInPlace
+        extends Algorithm {
 
   String rotateByWord(String string);
 
-  class Solution implements RotateWordsInPlace {
+  class Solution
+          implements RotateWordsInPlace {
 
     private char delimiter = ' ';
 

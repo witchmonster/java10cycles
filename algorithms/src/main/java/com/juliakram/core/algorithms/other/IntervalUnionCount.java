@@ -7,7 +7,7 @@ public class IntervalUnionCount {
 
   public static final int MIN_INTERVAL_BOUND = -1000000000;
   public static final int MAX_INTERVAL_BOUND = 1000000000;
-  public static final int MAX_N = 100000;
+  public static final int MAX_N              = 100000;
 
   public int solution(int[] A, int[] B) {
     arraysShouldHaveSameLength(A, B);
@@ -78,16 +78,20 @@ public class IntervalUnionCount {
     }
   }
 
-  private class ArraysHaveDifferentLengthException extends RuntimeException {
+  private class ArraysHaveDifferentLengthException
+          extends RuntimeException {
   }
 
-  private class IllegalArrayLengthException extends RuntimeException {
+  private class IllegalArrayLengthException
+          extends RuntimeException {
   }
 
-  private class IllegalIntervalBoundsException extends RuntimeException {
+  private class IllegalIntervalBoundsException
+          extends RuntimeException {
   }
 
-  class Interval implements Comparable<Interval> {
+  class Interval
+          implements Comparable<Interval> {
 
     private int a;
 

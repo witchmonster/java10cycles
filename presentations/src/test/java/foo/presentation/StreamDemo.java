@@ -31,7 +31,8 @@ public class StreamDemo {
   );
 
   @Test
-  public void sortedLowrCase() throws IOException {
+  public void sortedLowrCase()
+          throws IOException {
     List<String> output = stringList
             .stream()
             .flatMap(line -> Stream.of(line.split("\\W+")))

@@ -1,10 +1,10 @@
 package foo.teststuff;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by juliakram on 02/06/16.

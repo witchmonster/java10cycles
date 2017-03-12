@@ -8,7 +8,8 @@ public interface MatrixMultiply {
   Matrix multiply(Matrix a, Matrix b);
 
   //time O(nˆ3), space O(n)
-  class MatrixMultiplyDynamic implements MatrixMultiply {
+  class MatrixMultiplyDynamic
+          implements MatrixMultiply {
 
     @Override
     public Matrix multiply(Matrix a, Matrix b) {

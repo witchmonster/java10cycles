@@ -1,11 +1,11 @@
 package com.juliakram.core.algorithms.other;
 
 import com.juliakram.core.Algorithm;
-
 import model.constants.BigO;
 import model.constants.Complexity;
 
-public interface BinaryAdd extends Algorithm {
+public interface BinaryAdd
+        extends Algorithm {
 
   static void main(String[] args) {
 
@@ -13,7 +13,8 @@ public interface BinaryAdd extends Algorithm {
 
   String add(String n1, String n2);
 
-  class Linear implements BinaryAdd {
+  class Linear
+          implements BinaryAdd {
 
     @Override
     public Complexity complexity() {

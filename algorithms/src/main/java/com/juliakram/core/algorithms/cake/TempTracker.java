@@ -1,19 +1,19 @@
 package com.juliakram.core.algorithms.cake;
 
 import com.juliakram.core.TestableAlgorithm;
+import model.constants.BigO;
+import model.constants.Complexity;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import model.constants.BigO;
-import model.constants.Complexity;
 
 import static model.constants.Complexity.of;
 
 /**
  * https://www.interviewcake.com/question/java/temperature-tracker
  */
-public interface TempTracker extends TestableAlgorithm<Integer> {
+public interface TempTracker
+        extends TestableAlgorithm<Integer> {
 
   static void main(String[] args) {
     new Optimal().test();
@@ -48,13 +48,14 @@ public interface TempTracker extends TestableAlgorithm<Integer> {
     test(1, 2, 3, 3);
   }
 
-  class Optimal implements TempTracker {
-    private int max;
-    private int min;
+  class Optimal
+          implements TempTracker {
+    private int    max;
+    private int    min;
     private double sum;
-    private int count;
-    private int modeCount;
-    private int mode;
+    private int    count;
+    private int    modeCount;
+    private int    mode;
 
     //0...110
     private Map<Integer, Integer> scores = new HashMap<>();

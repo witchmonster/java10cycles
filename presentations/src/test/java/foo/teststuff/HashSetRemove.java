@@ -1,11 +1,11 @@
 package foo.teststuff;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by juliakram on 02/06/16.
@@ -39,7 +39,7 @@ public class HashSetRemove {
   private static class Foo {
 
     private final String id;
-    private final int value;
+    private final int    value;
 
   }
 }

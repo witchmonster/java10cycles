@@ -17,7 +17,7 @@ public class Complexity {
   @Override
   public String toString() {
     return "time=" + time +
-            ", space=" + space;
+           ", space=" + space;
   }
 
 }

@@ -1,8 +1,8 @@
 package com.juliakram.core.algorithms.other;
 
 
-import com.juliakram.java10cycles.datastructures.flat.stack.SequenceStack;
-import com.juliakram.java10cycles.datastructures.flat.stack.Stack;
+import com.jkramr.java10cycles.datastructures.flat.stack.SequenceStack;
+import com.jkramr.java10cycles.datastructures.flat.stack.Stack;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,21 +26,23 @@ public class InfixToPostfix {
   }
 
   public static void main(String[] args) {
-    String infix = "A+B*C-D^(E*F)";
+    String infix           = "A+B*C-D^(E*F)";
     String expectedPostfix = "ABC*+DEF*^-";
-    String postfix = infixToPostfix(infix);
+    String postfix         = infixToPostfix(infix);
     System.out.println(postfix);
   }
 
   private static String infixToPostfix(String infix) {
-    String postfix = "";
-    Stack<String> stack = new SequenceStack<String>();
+    String        postfix = "";
+    Stack<String> stack   = new SequenceStack<String>();
     for (int i = 0; i < infix.length(); i++) {
       String s = String.valueOf(infix.charAt(i));
       if (isExpression(s)) {
         postfix += s;
       } else if (isOperator(s)) {
-        while (!stack.isEmpty() && !"(".equals(stack.peek()) && stackOperatorHasNotLessPriorityThanCurrent(stack.peek(), s)) {
+        while (!stack.isEmpty() &&
+               !"(".equals(stack.peek()) &&
+               stackOperatorHasNotLessPriorityThanCurrent(stack.peek(), s)) {
           postfix += stack.pop();
         }
         stack.push(s);

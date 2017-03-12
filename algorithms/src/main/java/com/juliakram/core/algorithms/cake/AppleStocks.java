@@ -2,14 +2,14 @@ package com.juliakram.core.algorithms.cake;
 
 import com.juliakram.core.TestableAlgorithm;
 import com.juliakram.core.common.ArrayOps;
-
 import model.constants.BigO;
 import model.constants.Complexity;
 
 /**
  * https://www.interviewcake.com/question/java/stock-price
  */
-public interface AppleStocks extends TestableAlgorithm<Integer> {
+public interface AppleStocks
+        extends TestableAlgorithm<Integer> {
 
   static void main(String[] args) {
     new Greedy().test();
@@ -32,7 +32,8 @@ public interface AppleStocks extends TestableAlgorithm<Integer> {
     System.out.println("Max profit: " + getMaxProfit(ArrayOps.autoUnbox(data)));
   }
 
-  class Greedy implements AppleStocks {
+  class Greedy
+          implements AppleStocks {
     @Override
     public int getMaxProfit(int[] stockPrices) {
       if (stockPrices.length < 2) {

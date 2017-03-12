@@ -1,15 +1,15 @@
 package foo.presentation;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 /**
  * Created by juliakram on 15/06/16.
@@ -62,16 +62,28 @@ public class CompletableFutureDemo {
     Async async = context.async();
 
     tournament.addPlayer(new Player(1000, PLAYER1), (AsyncResult<String> player1Handler) ->
-            tournament.addPlayer(new Player(1001, PLAYER2), (AsyncResult<String> player2Handler) ->
-                    tournament.addPlayer(new Player(1002, PLAYER3), (AsyncResult<String> player3Handler) -> {
-                      log.info("All players has been added");
-                      tournament.registerPlayer((AsyncResult<JsonArray> resultHandler) -> {
-                        log.info("Looking for results");
-                        int count = resultHandler.result().size();
-                        context.assertEquals(count, 3, "All Players were registered");
-                        async.complete();
-                      });
-                    })
+            tournament.addPlayer(
+                    new Player(1001, PLAYER2),
+                    (AsyncResult<String> player2Handler) ->
+                            tournament.addPlayer(
+                                    new Player(1002, PLAYER3),
+                                    (AsyncResult<String> player3Handler) -> {
+                                      log.info("All players has been added");
+                                      tournament.registerPlayer((AsyncResult<JsonArray> resultHandler) -> {
+                                        log.info("Looking for results");
+                                        int
+                                                count
+                                                = resultHandler.result()
+                                                               .size();
+                                        context.assertEquals(
+                                                count,
+                                                3,
+                                                "All Players were registered"
+                                        );
+                                        async.complete();
+                                      });
+                                    }
+                            )
             )
     );
   }
@@ -80,13 +92,13 @@ public class CompletableFutureDemo {
     Async async = context.async();
 
     tournament.addPlayer(new Player(1000, PLAYER1))
-            .thenCompose(v -> tournament.addPlayer(new Player(1001, PLAYER2)))
-            .thenCompose(v -> tournament.addPlayer(new Player(1002, PLAYER3)))
-            .thenCompose(v -> tournament.registerPlayer())
-            .thenAccept(count -> {
-              context.assertEquals(count, 3, "All Player were registerd");
-              async.complete();
-            });
+              .thenCompose(v -> tournament.addPlayer(new Player(1001, PLAYER2)))
+              .thenCompose(v -> tournament.addPlayer(new Player(1002, PLAYER3)))
+              .thenCompose(v -> tournament.registerPlayer())
+              .thenAccept(count -> {
+                context.assertEquals(count, 3, "All Player were registerd");
+                async.complete();
+              });
   }
 
   private class Async {
@@ -116,7 +128,7 @@ public class CompletableFutureDemo {
 
     CompletableFuture<Void> addPlayer(Player p) {
       CompletableFuture<Void> promise = new CompletableFuture<>();
-      Map<String, String> hmset = new HashMap<>();
+      Map<String, String>     hmset   = new HashMap<>();
       hmset.put("name", p.getName());
       redisClient.hmset("PLAYERS:" + p.getId(), hmset, (AsyncResult<String> event) -> {
         promise.complete(null);
@@ -150,7 +162,11 @@ public class CompletableFutureDemo {
   }
 
   private class RClient {
-    public void hmset(String s, Map<String, String> hmset, Consumer<AsyncResult<String>> handler) {
+    public void hmset(
+            String s,
+            Map<String, String> hmset,
+            Consumer<AsyncResult<String>> handler
+    ) {
 
     }
   }

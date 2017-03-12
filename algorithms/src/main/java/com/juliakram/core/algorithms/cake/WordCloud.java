@@ -1,23 +1,21 @@
 package com.juliakram.core.algorithms.cake;
 
 import com.juliakram.core.TestableAlgorithm;
+import model.constants.BigO;
+import model.constants.Complexity;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import model.constants.BigO;
-import model.constants.Complexity;
-
-import static com.juliakram.core.algorithms.cake.WordCloud.Constants.delimiters;
-import static com.juliakram.core.algorithms.cake.WordCloud.Constants.minLength;
-import static com.juliakram.core.algorithms.cake.WordCloud.Constants.names;
+import static com.juliakram.core.algorithms.cake.WordCloud.Constants.*;
 
 /**
  * https://www.interviewcake.com/question/java/word-cloud
  */
-public interface WordCloud extends TestableAlgorithm<String> {
+public interface WordCloud
+        extends TestableAlgorithm<String> {
 
   static void main(String[] args) {
     new Naive().test();
@@ -43,7 +41,7 @@ public interface WordCloud extends TestableAlgorithm<String> {
 
   class Constants {
     static Set<Character> delimiters = new HashSet<>();
-    static Set<String> names = new HashSet<>();
+    static Set<String>    names      = new HashSet<>();
 
     static int minLength = 3;
 
@@ -62,7 +60,8 @@ public interface WordCloud extends TestableAlgorithm<String> {
     }
   }
 
-  class Naive implements WordCloud {
+  class Naive
+          implements WordCloud {
 
     private static void addNotEmptyWord(Map<String, Integer> result, String word) {
       if (word.length() >= minLength) {
@@ -103,7 +102,8 @@ public interface WordCloud extends TestableAlgorithm<String> {
     }
   }
 
-  class Linear implements WordCloud {
+  class Linear
+          implements WordCloud {
 
     @Override
     public Complexity complexity() {

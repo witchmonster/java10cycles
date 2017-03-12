@@ -2,24 +2,23 @@ package com.juliakram.core.algorithms.cake;
 
 import com.juliakram.core.TestableAlgorithm;
 import com.juliakram.core.common.ArrayOps;
+import model.constants.BigO;
+import model.constants.Complexity;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import model.constants.BigO;
-import model.constants.Complexity;
 
 import static java.math.BigInteger.valueOf;
 
 /**
  * https://www.interviewcake.com/question/java/product-of-other-numbers
  */
-public interface ProductOfOther extends TestableAlgorithm<Integer> {
+public interface ProductOfOther
+        extends TestableAlgorithm<Integer> {
 
   static void main(String[] args) {
 //    new Optimal().test();
-
 
 
     ArrayList<String> list = new ArrayList<>();
@@ -44,7 +43,8 @@ public interface ProductOfOther extends TestableAlgorithm<Integer> {
     System.out.println(Arrays.toString(getProductsOfAllIntsExceptAtIndex(ArrayOps.autoUnbox(data))));
   }
 
-  class Optimal implements ProductOfOther {
+  class Optimal
+          implements ProductOfOther {
 
     @Override
     public BigInteger[] getProductsOfAllIntsExceptAtIndex(int[] ints) {
@@ -56,7 +56,7 @@ public interface ProductOfOther extends TestableAlgorithm<Integer> {
 
       BigInteger[] products = new BigInteger[n];
 
-      BigInteger[] leftProduct = new BigInteger[n];
+      BigInteger[] leftProduct  = new BigInteger[n];
       BigInteger[] rightProduct = new BigInteger[n];
 
       leftProduct[0] = BigInteger.ONE;

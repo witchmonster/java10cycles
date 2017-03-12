@@ -125,7 +125,8 @@ public class ConcurrentTransactionalStack {
     doPush(value);
 
     if (!transactions.isEmpty()) {
-      transactions.forEach(transaction -> transaction.getRollbackTasks().push(ConcurrentTransactionalStack::pop));
+      transactions.forEach(transaction -> transaction.getRollbackTasks()
+                                                     .push(ConcurrentTransactionalStack::pop));
     }
   }
 
@@ -165,7 +166,8 @@ public class ConcurrentTransactionalStack {
     doPop();
 
     if (!transactions.isEmpty()) {
-      transactions.forEach(transaction -> transaction.getRollbackTasks().push(solution -> solution.push(top)));
+      transactions.forEach(transaction -> transaction.getRollbackTasks()
+                                                     .push(solution -> solution.push(top)));
     }
   }
 
@@ -228,6 +230,7 @@ public class ConcurrentTransactionalStack {
     }
   }
 
-  private class IllegalValueException extends RuntimeException {
+  private class IllegalValueException
+          extends RuntimeException {
   }
 }

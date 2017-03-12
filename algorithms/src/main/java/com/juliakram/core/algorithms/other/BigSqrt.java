@@ -1,17 +1,18 @@
 package com.juliakram.core.algorithms.other;
 
 import com.juliakram.core.TestableAlgorithm;
+import model.constants.BigO;
+import model.constants.Complexity;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-import model.constants.BigO;
-import model.constants.Complexity;
 
 /**
  * Created by juliakram on 25/06/16.
  */
-public interface BigSqrt extends TestableAlgorithm<BigDecimal> {
+public interface BigSqrt
+        extends TestableAlgorithm<BigDecimal> {
 
   static void main(String[] args) {
     new NewtonRaphson().test();
@@ -35,7 +36,8 @@ public interface BigSqrt extends TestableAlgorithm<BigDecimal> {
     }
   }
 
-  class NewtonRaphson implements BigSqrt {
+  class NewtonRaphson
+          implements BigSqrt {
 
     /**
      * Private utility method used to compute the square root of a BigDecimal.
@@ -62,7 +64,10 @@ public interface BigSqrt extends TestableAlgorithm<BigDecimal> {
     private static boolean isPreciseEnough(BigDecimal c, int precision, BigDecimal xn1) {
       BigDecimal currentPrecision = xn1.pow(2).subtract(c).abs();
 
-      BigDecimal coPrecision = BigDecimal.ONE.divide(BigDecimal.TEN.pow(precision), MathContext.UNLIMITED);
+      BigDecimal coPrecision = BigDecimal.ONE.divide(
+              BigDecimal.TEN.pow(precision),
+              MathContext.UNLIMITED
+      );
 
       return currentPrecision.compareTo(coPrecision) <= -1;
     }

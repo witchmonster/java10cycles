@@ -1,13 +1,13 @@
 package com.juliakram.core.algorithms.other.arrays;
 
 import com.juliakram.core.Algorithm;
-
-import java.util.Arrays;
-
 import model.constants.BigO;
 import model.constants.Complexity;
 
-public interface ShiftArray extends Algorithm {
+import java.util.Arrays;
+
+public interface ShiftArray
+        extends Algorithm {
 
   static void main(String[] args) {
 //        test(new Polynomial());
@@ -30,17 +30,19 @@ public interface ShiftArray extends Algorithm {
   }
 
   static void run(ShiftArray shifter, int[] array, int offset) {
-    System.out.println(shifter.getClass().getSimpleName() + output(shifter, array.clone(), offset));
+    System.out.println(shifter.getClass().getSimpleName() +
+                       output(shifter, array.clone(), offset));
   }
 
   static String output(ShiftArray shifter, int[] array, int offset) {
     return " shiftby " + offset + ": " +
-            Arrays.toString(shifter.shift(array, offset));
+           Arrays.toString(shifter.shift(array, offset));
   }
 
   int[] shift(int[] array, int offset);
 
-  class Polynomial implements ShiftArray {
+  class Polynomial
+          implements ShiftArray {
 
     @Override
     public Complexity complexity() {
@@ -72,7 +74,8 @@ public interface ShiftArray extends Algorithm {
 
   }
 
-  class Linear implements ShiftArray {
+  class Linear
+          implements ShiftArray {
 
     @Override
     public Complexity complexity() {
@@ -89,8 +92,8 @@ public interface ShiftArray extends Algorithm {
       offset = mod(offset, n);
 
       int tmp = array[mod(n - offset, n)];
-      int i = 0;
-      int k = 0;
+      int i   = 0;
+      int k   = 0;
 
       for (int j = 0; j < n / k; j++) {
         int t = array[mod(i, n)];
