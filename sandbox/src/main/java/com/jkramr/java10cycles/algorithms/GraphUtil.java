@@ -18,12 +18,6 @@ public class GraphUtil {
     while (!queue.isEmpty()) {
       Node node = queue.poll();
 
-      TreeSet<Node> neighbours = node.getNeighbours();
-
-      if (neighbours.isEmpty()) {
-        return;
-      }
-
       for (Node neighbor : neighbours) {
         if (unvisitedVertices.contains(neighbor)) {
           queue.add(neighbor);
@@ -42,12 +36,6 @@ public class GraphUtil {
 
     while (!stack.isEmpty()) {
       Node node = stack.peek();
-
-      TreeSet<Node> neighbours = node.getNeighbours();
-
-      if (neighbours.isEmpty()) {
-        stack.pop();
-      }
 
       for (Node neighbor : neighbours) {
         if (unvisitedNodes.contains(neighbor)) {
@@ -98,12 +86,6 @@ public class GraphUtil {
     while (!queue.isEmpty()) {
       Node current = queue.poll();
       currentDepth = current.depth;
-
-      TreeSet<Node> neighbours = current.getNeighbours();
-
-      if (neighbours.isEmpty()) {
-        return;
-      }
 
       for (Node neighbour : neighbours) {
         if (unvisitedNodes.contains(neighbour)) {
