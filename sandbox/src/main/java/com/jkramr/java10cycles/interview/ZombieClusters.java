@@ -83,33 +83,13 @@ class ZombieClusters {
 
   public static void main(String[] args) {
 
-//        args = new String[]{
-//                "5",
-//                "10000",
-//                "01000",
-//                "00100",
-//                "00010",
-//                "00001"};
+//      args = testCase1();
 
-//        args = new String[]{
-//                "4",
-//                "1000",
-//                "0100",
-//                "0011",
-//                "0011"};
-
-    args = new String[]{
-            "7",
-            "1100000",
-            "1100000",
-            "0010100",
-            "0001100",
-            "0011100",
-            "0000010",
-            "0000001"
-    };
-
-    if (args.length < 2) {
+//      args = testCase2();
+    
+      args = testCase3();
+    
+      if (args.length < 2) {
       return;
     }
 
@@ -124,8 +104,40 @@ class ZombieClusters {
     System.out.println(zombieCluster(zombies));
 
   }
-
-  private static class ZombieNode {
+    
+    private static String[] testCase1() {
+        return new String[]{
+                "5",
+                "10000",
+                "01000",
+                "00100",
+                "00010",
+                "00001"};
+    }
+    
+    private static String[] testCase2() {
+        return new String[]{
+                "4",
+                "1000",
+                "0100",
+                "0011",
+                "0011"};
+    }
+    
+    private static String[] testCase3() {
+        return new String[]{
+                "7",
+                "1100000",
+                "1100000",
+                "0010100",
+                "0001100",
+                "0011100",
+                "0000010",
+                "0000001"
+        };
+    }
+    
+    private static class ZombieNode implements Comparable{
 
     public  int                 depth;
     private Integer             value;
@@ -142,6 +154,11 @@ class ZombieClusters {
 
     public void add(ZombieNode node) {
       neighbors.add(node);
+    }
+  
+    @Override
+    public int compareTo(final Object o) {
+      return this.value.compareTo(((ZombieNode) o).getValue());
     }
   }
 }
