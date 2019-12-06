@@ -1,9 +1,9 @@
 package foo.presentation;
 
-import org.junit.Test;
-
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by juliakram on 15/06/16.

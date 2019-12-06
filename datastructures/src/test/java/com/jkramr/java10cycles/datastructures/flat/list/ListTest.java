@@ -1,9 +1,10 @@
 package com.jkramr.java10cycles.datastructures.flat.list;
 
-import com.jkramr.java10cycles.datastructures.DataStructureTest;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import com.jkramr.java10cycles.datastructures.DataStructureTest;
 
 public abstract class ListTest
         extends DataStructureTest {

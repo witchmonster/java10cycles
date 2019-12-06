@@ -1,40 +1,43 @@
 buildscript {
 
     repositories {
-        jcenter()
+        mavenLocal()
+        mavenCentral()
     }
 
     dependencies {
-        classpath 'io.spring.gradle:dependency-management-plugin:0.5.4.RELEASE'
     }
 }
 
 allprojects {
     repositories {
-        jcenter()
+        mavenLocal()
+        mavenCentral()
     }
 
     apply plugin: 'base'
     apply plugin: 'java'
     apply plugin: 'idea'
-    apply plugin: 'io.spring.dependency-management'
 
-    dependencyManagement {
+    sourceCompatibility = '12'
+    targetCompatibility = '12'
+
+    subprojects {
+        apply plugin: 'java'
+
+        repositories {
+            mavenLocal()
+            mavenCentral()
+        }
+
         dependencies {
-            dependency group: 'org.projectlombok', name: 'lombok', version: '1.16.6'
+            compileOnly("org.projectlombok:lombok:${lombokVersion}")
+            testCompileOnly("org.projectlombok:lombok:${lombokVersion}")
+            annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+            testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
 
-
-            dependency group: 'junit', name: 'junit', version: '4.12'
-            dependency group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.5'
-            dependency group: 'org.spockframework', name: 'spock-core', version: '1.0-groovy-2.4'
+            testImplementation "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
         }
     }
 }
 
-subprojects {
-    sourceCompatibility = 1.8
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.13'
-}

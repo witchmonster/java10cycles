@@ -2,7 +2,6 @@ package foo.presentation;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +9,8 @@ import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by juliakram on 15/06/16.
@@ -21,15 +22,7 @@ public class OptionalDemo {
   public static final String              PLAYER3_ID = "player2";
   static              Map<String, Player> players    = new HashMap<>();
   private final       Lock                lock       = new ReentrantLock();
-  PlayerRepository repository = new PlayerRepository() {
-
-    @Override
-    public Player findById(String id) {
-      return players.get(id);
-    }
-  };
-
-  ;
+  PlayerRepository repository = id -> players.get(id);
 
   {
     players.put(PLAYER1_ID, new Player(PLAYER1_ID, "Mulder", 1000));

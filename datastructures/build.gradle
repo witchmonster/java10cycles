@@ -1,4 +1,3 @@
 dependencies {
-    compile project(':model')
-    testCompile 'junit:junit'
+    implementation project(':model')
 }

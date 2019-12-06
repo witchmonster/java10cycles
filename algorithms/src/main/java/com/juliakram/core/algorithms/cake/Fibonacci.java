@@ -4,7 +4,6 @@ import com.juliakram.core.TestableAlgorithm;
 import com.juliakram.core.algorithms.other.BigSqrt;
 import model.constants.BigO;
 import model.constants.Complexity;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -110,7 +109,7 @@ public interface Fibonacci
 
     @Override
     public BigInteger fib(int i) {
-      throw new NotImplementedException();//TODO
+      throw new UnsupportedOperationException();//TODO
     }
 
     @Override

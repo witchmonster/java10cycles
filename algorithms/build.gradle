@@ -1,9 +1,4 @@
 dependencies {
-    compile project(':datastructures')
-    compile project(':model')
-
-    compile(group: 'org.projectlombok', name: 'lombok')
-    compile "org.codehaus.groovy:groovy-all"
-    testCompile 'org.spockframework:spock-core'
-    testCompile 'junit:junit'
+    implementation project(':datastructures')
+    implementation project(':model')
 }

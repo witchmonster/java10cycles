@@ -1,12 +1,12 @@
 package foo.presentation;
 
-import org.junit.Test;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by juliakram on 15/06/16.
