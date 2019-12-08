@@ -1,4 +1,4 @@
-package com.jkramr.java10cycles.hackerrank;
+package com.jkramr.java10cycles.archive.hackerrank;
 
 
 import java.util.*;

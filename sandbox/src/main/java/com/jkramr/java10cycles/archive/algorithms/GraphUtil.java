@@ -1,4 +1,4 @@
-package com.jkramr.java10cycles.algorithms;
+package com.jkramr.java10cycles.archive.algorithms;
 
 import java.util.*;
 
