@@ -1,4 +1,4 @@
-package com.jkramr.java10cycles.interviews;
+package com.jkramr.java10cycles.practice;
 
 public class GcdTwoNumbers {
     
