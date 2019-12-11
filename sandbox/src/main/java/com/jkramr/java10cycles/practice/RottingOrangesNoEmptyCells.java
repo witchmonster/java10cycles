@@ -13,7 +13,7 @@ import java.util.Map;
 //https://leetcode.com/problems/rotting-oranges/
 public class RottingOrangesNoEmptyCells {
     public static void main(String[] args) {
-        System.out.println(calculate(new int[][]{{1, 0, 0}, {1, 0, 0}, {0, 1, 0}}));
+        System.out.println(calculate(new int[][]{{1, 0, 0}, {0, 0, 0}, {0, 0, 0}}));
     }
     
     private static int calculate(final int[][] orangeMatrix) {
@@ -53,6 +53,14 @@ public class RottingOrangesNoEmptyCells {
                     queue.add(ncode);
                     depth.put(ncode, newDepth);
                     result = newDepth;
+                }
+            }
+        }
+    
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (orangeMatrix[i][j] == 1) {
+                    return -1;
                 }
             }
         }
