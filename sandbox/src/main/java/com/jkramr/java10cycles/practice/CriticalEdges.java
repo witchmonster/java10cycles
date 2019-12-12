@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 //https://leetcode.com/problems/critical-connections-in-a-network/
-public class CriticalConnections {
+public class CriticalEdges {
     
     private static Map<Integer, Boolean> visited;
     
