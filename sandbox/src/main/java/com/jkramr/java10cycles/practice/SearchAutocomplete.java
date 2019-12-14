@@ -14,14 +14,15 @@ public class SearchAutocomplete {
         System.out.println(suggest("mon"));
     }
     
+    //    Expected output: [moneypot, monitor]
     private static final List<String> suggestions = List.of("mobile", "moneypot", "monitor", "mousepad", "mocktray");
     
     private static List<String> suggest(final String inputText) {
-        
         PrefixTree prefixTree = populatePrefixTree();
         
         return prefixTree.getSuggestions(inputText);
     }
+    
     
     private static PrefixTree populatePrefixTree() {
         PrefixTree prefixTree = new PrefixTree();
@@ -49,7 +50,7 @@ public class SearchAutocomplete {
             }
             
             Set<Node> visited = new HashSet<>();
-            dfs(prefix, result, visited, currentNode);
+            dfs(prefix, new StringBuilder(prefix), result, visited, currentNode);
             
             return result;
         }
@@ -67,15 +68,16 @@ public class SearchAutocomplete {
             return currentNode;
         }
         
-        private void dfs(String prefix, final List<String> result, final Set<Node> visited, final Node currentNode) {
+        private void dfs(String prefix, StringBuilder currentWord, final List<String> result, final Set<Node> visited, final Node currentNode) {
             visited.add(currentNode);
             for (Node child : currentNode.getChildren().values()) {
                 if (child.value == END_WORD_CHAR) {
-                    result.add(prefix);
+                    result.add(currentWord.toString());
+                    currentWord.delete(prefix.length(), currentWord.length());
                     return;
                 }
                 if (!visited.contains(child)) {
-                    dfs(prefix + child.value, result, visited, child);
+                    dfs(prefix, currentWord.append(child.value), result, visited, child);
                 }
             }
         }
